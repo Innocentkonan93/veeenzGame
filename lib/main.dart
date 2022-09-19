@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Veeenz Game',
-      theme: ThemeData.dark(),
+        theme: ThemeData.dark(),
       home: const GamingPage()
     );
   }
