@@ -1,20 +1,27 @@
 import 'dart:async';
+import 'dart:math';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
+import 'package:get/get.dart';
+import 'package:veeenz_game/components/count_down.dart';
+import 'package:veeenz_game/pages/home_page.dart';
 import 'package:veeenz_game/pages/results_view.dart';
 
 import '../components/custom_app_bar.dart';
+import '../components/start_button.dart';
+import '../models/player.dart';
 
 class GamingPage extends StatefulWidget {
-  const GamingPage({super.key});
+  const GamingPage({super.key, required this.player});
+  final Player player;
 
   @override
   State<GamingPage> createState() => _GamingPageState();
 }
 
 class _GamingPageState extends State<GamingPage> {
-  static const maxSenconds = 35;
-  int seconds = maxSenconds;
+  static const maxSeconds = 35;
+  int seconds = maxSeconds;
   AlignmentGeometry alignment = Alignment.center;
   int counter = 0;
   int? oldCounter;
@@ -25,8 +32,7 @@ class _GamingPageState extends State<GamingPage> {
 
   bool isCompleted = false;
   bool isStart = false;
-  Duration durationUse = Duration.zero;
- 
+
   void updatePosition(int tick) {
     switch (tick) {
       case 0:
@@ -85,7 +91,7 @@ class _GamingPageState extends State<GamingPage> {
       isStart = true;
     });
     startTimer();
-    startMovement();
+    startMovement2();
   }
 
   void startMovement() {
@@ -112,6 +118,19 @@ class _GamingPageState extends State<GamingPage> {
       //   counter = Random().nextInt(8);
       // });
       // print(counter);
+      updatePosition(counter);
+    });
+  }
+
+  void startMovement2() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer.periodic(const Duration(milliseconds: 1300), (timer) {
+      setState(() {
+        counter = Random().nextInt(8);
+      });
+      if (kDebugMode) {
+        print(counter);
+      }
       updatePosition(counter);
     });
   }
@@ -147,13 +166,13 @@ class _GamingPageState extends State<GamingPage> {
       barrierColor: Colors.black12,
       builder: (context) {
         return Dialog(
-          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
           insetPadding: const EdgeInsets.all(8),
-          child: ResultVieew(
+          child: ResultView(
             isWin: isWin,
+            player: widget.player,
           ),
         );
       },
@@ -165,7 +184,7 @@ class _GamingPageState extends State<GamingPage> {
     oldCounter = seconds;
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: const CustomAppBar(),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -203,7 +222,6 @@ class _GamingPageState extends State<GamingPage> {
                         showResultDialog(isWin: true);
                       }
                     }
-                    print(positionCaptured);
                   },
                   child: const FlutterLogo(size: 40),
                 ),
@@ -216,8 +234,18 @@ class _GamingPageState extends State<GamingPage> {
                 ),
                 child: Center(
                   child: isStart == false
-                      ? buildStartButton(context)
-                      : buildStopButton(context),
+                      ? StartButton(
+                          maxSeconds: maxSeconds,
+                          seconds: seconds,
+                          onTap: () {
+                            start();
+                          },
+                        )
+                      : CountDown(
+                          percent: seconds / maxSeconds,
+                          oldCount: oldCounter,
+                          seconds: seconds,
+                        ),
                 ),
               ),
               if (isStart) ...widgets,
@@ -253,96 +281,31 @@ class _GamingPageState extends State<GamingPage> {
                 ),
               ),
             ),
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.blue.shade50,
-              child: const Icon(
-                Icons.home,
-                color: Color.fromARGB(255, 83, 100, 92),
-                size: 40,
+            GestureDetector(
+              onTap: () {
+                Get.offAll(() => const HomePage());
+              },
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.blue.shade50,
+                child: const Icon(
+                  Icons.home_rounded,
+                  color: Color.fromARGB(255, 83, 100, 92),
+                  size: 40,
+                ),
               ),
             ),
             CircleAvatar(
               radius: 30,
               backgroundColor: Colors.blue.shade50,
               child: Icon(
-                Icons.replay,
+                Icons.replay_rounded,
                 color: Colors.orange.shade900,
                 size: 40,
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget buildStopButton(context) {
-    return CircularPercentIndicator(
-      radius: 93.0,
-      animationDuration: 1200,
-      lineWidth: 15.0,
-      percent: seconds / maxSenconds,
-      circularStrokeCap: CircularStrokeCap.round,
-      center: CircleAvatar(
-        radius: 78,
-        child: Center(
-          child: TweenAnimationBuilder<double>(
-            key: ValueKey(oldCounter),
-            duration: const Duration(seconds: 1),
-            tween: Tween(
-              begin: 0.0,
-              end: 1.0,
-            ),
-            builder: (context, value, child) {
-              return Stack(
-                children: [
-                  if (oldCounter != null)
-                    Opacity(
-                      opacity: 1 - value,
-                      child: Transform.translate(
-                        offset: Offset(50 * value, 0.0),
-                        child: Text(
-                          oldCounter.toString(),
-                          style: Theme.of(context).textTheme.headline4,
-                        ),
-                      ),
-                    ),
-                  Transform.translate(
-                    offset: Offset(-05 * (1 - value), 0.0),
-                    child: Text(
-                      seconds.toString(),
-                      style: Theme.of(context).textTheme.headline4,
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
-        ),
-      ),
-      backgroundColor: Colors.transparent,
-      progressColor: Theme.of(context).colorScheme.primary,
-    );
-  }
-
-  Widget buildStartButton(context) {
-    return InkWell(
-      onTap: () {
-        start();
-      },
-      hoverColor: null,
-      child: CircleAvatar(
-        radius: 78,
-        child: seconds != 0 && seconds != maxSenconds
-            ? Text(
-                "$seconds",
-                style: Theme.of(context).textTheme.headline4,
-              )
-            : Text(
-                "GO",
-                style: Theme.of(context).textTheme.headline4,
-              ),
       ),
     );
   }

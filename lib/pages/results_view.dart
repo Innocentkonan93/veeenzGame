@@ -3,21 +3,24 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 
+import '../models/player.dart';
 import 'gaming_page.dart';
 
-class ResultVieew extends StatefulWidget {
-  const ResultVieew({
+class ResultView extends StatefulWidget {
+  const ResultView({
     Key? key,
     required this.isWin,
+    required this.player,
   }) : super(key: key);
 
   final bool isWin;
+  final Player player;
 
   @override
-  State<ResultVieew> createState() => _ResultVieewState();
+  State<ResultView> createState() => _ResultViewState();
 }
 
-class _ResultVieewState extends State<ResultVieew> {
+class _ResultViewState extends State<ResultView> {
   late ConfettiController _controllerCenter;
 
   @override
@@ -36,6 +39,7 @@ class _ResultVieewState extends State<ResultVieew> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     bool isWin = widget.isWin;
+    Player player = widget.player;
     return SizedBox(
       height: size.height,
       width: size.width,
@@ -96,15 +100,15 @@ class _ResultVieewState extends State<ResultVieew> {
                       CircleAvatar(
                         backgroundColor: Theme.of(context).colorScheme.primary,
                         radius: 70,
-                        child: const CircleAvatar(
+                        child: CircleAvatar(
                           radius: 60,
                           backgroundColor: Colors.white12,
                           child: CircleAvatar(
                             radius: 50,
                             backgroundColor: Colors.white24,
                             child: Text(
-                              "2",
-                              style: TextStyle(
+                              player.position.toString(),
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w900,
                                 fontSize: 70,
                                 color: Colors.white,
@@ -118,7 +122,9 @@ class _ResultVieewState extends State<ResultVieew> {
                         onPressed: () {
                           Navigator.of(context).pushAndRemoveUntil(
                             MaterialPageRoute(
-                              builder: (context) => const GamingPage(),
+                              builder: (context) => GamingPage(
+                                player: player,
+                              ),
                             ),
                             (route) => false,
                           );
@@ -171,7 +177,9 @@ class _ResultVieewState extends State<ResultVieew> {
                       onPressed: () {
                         Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                            builder: (context) => const GamingPage(),
+                            builder: (context) => GamingPage(
+                              player: player,
+                            ),
                           ),
                           (route) => false,
                         );

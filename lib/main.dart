@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:veeenz_game/pages/gaming_page.dart';
+import 'package:get/get.dart';
+import 'package:veeenz_game/pages/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Veeenz Game',
-        theme: ThemeData.dark(),
-      home: const GamingPage()
+      theme: ThemeData.dark(),
+      home: const HomePage(),
     );
   }
 }
-
- 
