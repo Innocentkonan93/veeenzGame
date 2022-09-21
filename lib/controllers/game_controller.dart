@@ -20,42 +20,42 @@ class GameController extends GetxController {
 
   RxBool isCompleted = false.obs;
   RxBool isStart = false.obs;
+  RxInt userLevel = 1.obs;
 
   Player player = const Player(id: "1", name: "Josco", position: 1);
 
-  void updatePosition(int tick) {
-    switch (tick) {
-      case 0:
-        alignment(Alignment.topCenter);
-        break;
-      case 1:
-        alignment(Alignment.topRight);
-        break;
-      case 2:
-        alignment(Alignment.centerRight);
-        break;
-      case 3:
-        alignment(Alignment.bottomRight);
-        break;
-      case 4:
-        alignment(Alignment.bottomCenter);
-        break;
-      case 5:
-        alignment(Alignment.bottomLeft);
-        break;
-      case 6:
-        alignment(Alignment.centerLeft);
-        break;
-      case 7:
-        alignment(Alignment.topLeft);
-
-        break;
-      case 8:
-        alignment(Alignment.topCenter);
-        break;
-      default:
-        _debounce?.cancel();
-    }
+  movment(int tick) {
+    const map = {
+      //circle
+      0: Alignment.topCenter,
+      1: Alignment.topRight,
+      2: Alignment.centerRight,
+      3: Alignment.bottomRight,
+      4: Alignment.bottomCenter,
+      5: Alignment.bottomLeft,
+      6: Alignment.centerLeft,
+      7: Alignment.topLeft,
+      8: Alignment.topCenter,
+      // Z mouvment
+      9: Alignment.topLeft,
+      10: Alignment.topCenter,
+      11: Alignment.topRight,
+      12: Alignment.bottomLeft,
+      13: Alignment.bottomCenter,
+      14: Alignment.bottomRight,
+      15: Alignment.centerLeft,
+      16: Alignment.centerRight,
+      // N mouvment
+      17: Alignment.bottomLeft,
+      18: Alignment.centerLeft,
+      19: Alignment.topLeft,
+      20: Alignment.bottomRight,
+      21: Alignment.centerRight,
+      22: Alignment.topRight,
+      23: Alignment.topCenter,
+      24: Alignment.bottomCenter,
+    };
+    alignment(map[tick] ?? Alignment.center);
   }
 
   void start() {
@@ -121,7 +121,7 @@ class GameController extends GetxController {
           isCompleted(false);
         }
         // print(counter);
-        updatePosition(counter.value);
+        movment(counter.value);
       },
     );
   }
@@ -134,7 +134,7 @@ class GameController extends GetxController {
         //random counter
         counter(Random().nextInt(8));
         // print(counter);
-        updatePosition(counter.value);
+        movment(counter.value);
       },
     );
   }

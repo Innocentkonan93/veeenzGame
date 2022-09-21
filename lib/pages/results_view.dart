@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 
@@ -22,17 +23,33 @@ class ResultView extends StatefulWidget {
 
 class _ResultViewState extends State<ResultView> {
   late ConfettiController _controllerCenter;
+  late AssetsAudioPlayer _assetsAudioPlayer;
 
   @override
   void initState() {
+    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
+    playAudio();
     _controllerCenter =
-        ConfettiController(duration: const Duration(seconds: 10));
+        ConfettiController();
     _controllerCenter.play();
 
-    Future.delayed(const Duration(seconds: 8), () {
+    Future.delayed(const Duration(seconds: 3), () {
       _controllerCenter.stop();
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _assetsAudioPlayer.dispose();
+    super.dispose();
+  }
+
+  Future playAudio() async {
+    Audio audio = Audio("assets/audios/winning.mp3");
+    if (widget.isWin) {
+      AssetsAudioPlayer.playAndForget(audio);
+    }
   }
 
   @override
@@ -54,6 +71,8 @@ class _ResultViewState extends State<ResultView> {
         body: isWin == true
             ? ConfettiWidget(
                 confettiController: _controllerCenter,
+                maximumSize: const Size(15, 10),
+                minimumSize: const Size(15, 10),
                 blastDirection: pi / 2,
                 canvas: MediaQuery.of(context).size,
 
@@ -68,20 +87,25 @@ class _ResultViewState extends State<ResultView> {
                   Colors.orange,
                   Colors.purple
                 ], // manually specify // manually specify the colors to be used
-                strokeWidth: 1,
-                strokeColor: Colors.white,
+
                 child: SizedBox(
                   width: double.infinity,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     // crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      const Text(
-                        "😀",
-                        style: TextStyle(
-                          fontSize: 100,
+                      const SizedBox(
+                        width: 100,
+                        height: 100,
+                        child: Center(
+                          child: Text(
+                            "😄",
+                            style: TextStyle(
+                              fontSize: 80,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                        textAlign: TextAlign.center,
                       ),
                       const Text(
                         "Félicitations ",
@@ -155,7 +179,7 @@ class _ResultViewState extends State<ResultView> {
                     const Text(
                       "🥹",
                       style: TextStyle(
-                        fontSize: 100,
+                        fontSize: 80,
                       ),
                       textAlign: TextAlign.center,
                     ),

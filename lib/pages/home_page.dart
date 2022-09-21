@@ -31,11 +31,12 @@ class _HomePageState extends State<HomePage> {
                       () => GamingPage(
                         player: player,
                       ),
+                      fullscreenDialog: true,
                     );
                   },
                   child: Text(
                     'Play',
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.fredokaOne(
                       color: Colors.blue,
                       fontSize: 35,
                     ),

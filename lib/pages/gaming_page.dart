@@ -1,8 +1,13 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
+
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:veeenz_game/components/count_down.dart';
 import 'package:veeenz_game/pages/home_page.dart';
 import 'package:veeenz_game/pages/results_view.dart';
@@ -24,70 +29,60 @@ class _GamingPageState extends State<GamingPage> {
   int seconds = maxSeconds;
   AlignmentGeometry alignment = Alignment.center;
   int counter = 0;
+  GetStorage storage = GetStorage();
   int? oldCounter;
   Timer? _debounce;
   Timer? _timer;
   List<Widget> widgets = [];
   List<AlignmentGeometry> positionCaptured = [];
 
+  //user level
+  int level = 1;
+  int target = 8;
+
+  late AssetsAudioPlayer _assetsAudioPlayer;
+
   bool isCompleted = false;
   bool isStart = false;
 
-  void updatePosition(int tick) {
-    switch (tick) {
-      case 0:
-        setState(() {
-          alignment = Alignment.topCenter;
-        });
-        break;
-      case 1:
-        setState(() {
-          alignment = Alignment.topRight;
-        });
-        break;
-      case 2:
-        setState(() {
-          alignment = Alignment.centerRight;
-        });
-        break;
-      case 3:
-        setState(() {
-          alignment = Alignment.bottomRight;
-        });
-        break;
-      case 4:
-        setState(() {
-          alignment = Alignment.bottomCenter;
-        });
-        break;
-      case 5:
-        setState(() {
-          alignment = Alignment.bottomLeft;
-        });
-        break;
-      case 6:
-        setState(() {
-          alignment = Alignment.centerLeft;
-        });
-        break;
-      case 7:
-        setState(() {
-          alignment = Alignment.topLeft;
-        });
-        break;
-      case 8:
-        setState(() {
-          alignment = Alignment.topCenter;
-        });
-        break;
-      default:
-        _debounce?.cancel();
-    }
+  movment(int tick) {
+    const map = {
+      // Circle movment
+      0: Alignment.topCenter,
+      1: Alignment.topRight,
+      2: Alignment.centerRight,
+      3: Alignment.bottomRight,
+      4: Alignment.bottomCenter,
+      5: Alignment.bottomLeft,
+      6: Alignment.centerLeft,
+      7: Alignment.topLeft,
+      8: Alignment.topCenter,
+      // Z mouvment
+      9: Alignment.topLeft,
+      10: Alignment.topCenter,
+      11: Alignment.topRight,
+      12: Alignment.bottomLeft,
+      13: Alignment.bottomCenter,
+      14: Alignment.bottomRight,
+      15: Alignment.centerLeft,
+      16: Alignment.centerRight,
+      // N mouvment
+      17: Alignment.bottomLeft,
+      18: Alignment.centerLeft,
+      19: Alignment.topLeft,
+      20: Alignment.bottomRight,
+      21: Alignment.centerRight,
+      22: Alignment.topRight,
+      23: Alignment.topCenter,
+      24: Alignment.bottomCenter,
+    };
+    setState(() {
+      alignment = map[tick] ?? Alignment.center;
+    });
   }
 
   void start() {
     setState(() {
-      positionCaptured.clear();
       isStart = true;
     });
     startTimer();
@@ -96,7 +91,7 @@ class _GamingPageState extends State<GamingPage> {
 
   void startMovement() {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
-    _debounce = Timer.periodic(const Duration(milliseconds: 1900), (timer) {
+    _debounce = Timer.periodic(const Duration(milliseconds: 1300), (timer) {
       if (mounted) {
         if (isCompleted) {
           counter--;
@@ -114,11 +109,7 @@ class _GamingPageState extends State<GamingPage> {
           isCompleted = false;
         });
       }
-      // setState(() {
-      //   counter = Random().nextInt(8);
-      // });
-      // print(counter);
-      updatePosition(counter);
+      movment(counter);
     });
   }
 
@@ -126,12 +117,12 @@ class _GamingPageState extends State<GamingPage> {
     if (_debounce?.isActive ?? false) _debounce!.cancel();
     _debounce = Timer.periodic(const Duration(milliseconds: 1300), (timer) {
       setState(() {
-        counter = Random().nextInt(8);
+        counter = Random().nextInt(20);
       });
       if (kDebugMode) {
         print(counter);
       }
-      updatePosition(counter);
+      movment(counter);
     });
   }
 
@@ -141,6 +132,9 @@ class _GamingPageState extends State<GamingPage> {
     // seconds = maxSenconds;
     counter = 0;
     setState(() {
+      //!
+      alignment = Alignment.center;
+      //?
       isStart = false;
     });
   }
@@ -172,11 +166,41 @@ class _GamingPageState extends State<GamingPage> {
           insetPadding: const EdgeInsets.all(8),
           child: ResultView(
             isWin: isWin,
-            player: widget.player,
+            player: widget.player.copyWith(position: level),
           ),
         );
       },
     );
+  }
+
+  void updatePlayerLevel() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt("level", level);
+  }
+
+  getPlayerLevel() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      level = pref.getInt("level") ?? 1;
+    });
+  }
+
+  @override
+  void initState() {
+    getPlayerLevel();
+    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _assetsAudioPlayer.dispose();
+    super.dispose();
+  }
+
+  Future playAudio() async {
+    Audio audio = Audio("assets/audios/catchit.mp3");
+    AssetsAudioPlayer.playAndForget(audio);
   }
 
   @override
@@ -184,7 +208,7 @@ class _GamingPageState extends State<GamingPage> {
     oldCounter = seconds;
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: CustomAppBar(levelTarget: target - positionCaptured.length),
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.all(10),
@@ -203,23 +227,22 @@ class _GamingPageState extends State<GamingPage> {
                       widgets.add(
                         Align(
                           alignment: alignment,
-                          child: const ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                                Colors.black12, BlendMode.darken),
-                            child: FlutterLogo(
-                              size: 40,
-                              textColor: Colors.grey,
-                            ),
-                          ),
+                          child: const Runner(),
                         ),
                       );
                     }
                     if (!positionCaptured.contains(alignment)) {
                       positionCaptured.add(alignment);
+                      playAudio();
                       setState(() {});
                       if (positionCaptured.length == 8) {
+                        setState(() {
+                          level++;
+                        });
                         stop();
+                        updatePlayerLevel();
                         showResultDialog(isWin: true);
+                        positionCaptured.clear();
                       }
                     }
                   },
@@ -248,7 +271,7 @@ class _GamingPageState extends State<GamingPage> {
                         ),
                 ),
               ),
-              if (isStart) ...widgets,
+              ...widgets,
             ],
           ),
           // child: Alimated,
@@ -260,53 +283,87 @@ class _GamingPageState extends State<GamingPage> {
         decoration: const BoxDecoration(
           color: Colors.black12,
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-              onTap: () {
-                if (isStart) {
-                  stop();
-                } else {
-                  start();
-                }
-              },
-              child: CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.blue.shade50,
-                child: Icon(
-                  isStart ? Icons.pause : Icons.play_arrow_rounded,
-                  color: const Color.fromARGB(255, 75, 78, 187),
-                  size: 40,
+        child: SafeArea(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  if (isStart) {
+                    stop();
+                  } else {
+                    start();
+                  }
+                },
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.blue.shade50,
+                  child: Icon(
+                    isStart ? Icons.pause : Icons.play_arrow_rounded,
+                    color: const Color.fromARGB(255, 75, 78, 187),
+                    size: 40,
+                  ),
                 ),
               ),
-            ),
-            GestureDetector(
-              onTap: () {
-                Get.offAll(() => const HomePage());
-              },
-              child: CircleAvatar(
-                radius: 30,
-                backgroundColor: Colors.blue.shade50,
-                child: const Icon(
-                  Icons.home_rounded,
-                  color: Color.fromARGB(255, 83, 100, 92),
-                  size: 40,
+              GestureDetector(
+                onTap: () {
+                  Get.offAll(
+                    () => const HomePage(),
+                    fullscreenDialog: true,
+                  );
+                },
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.blue.shade50,
+                  child: const Icon(
+                    Icons.home_rounded,
+                    color: Color.fromARGB(255, 83, 100, 92),
+                    size: 40,
+                  ),
                 ),
               ),
-            ),
-            CircleAvatar(
-              radius: 30,
-              backgroundColor: Colors.blue.shade50,
-              child: Icon(
-                Icons.replay_rounded,
-                color: Colors.orange.shade900,
-                size: 40,
+              GestureDetector(
+                onTap: playAudio,
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.blue.shade50,
+                  child: Icon(
+                    Icons.replay_rounded,
+                    color: Colors.orange.shade900,
+                    size: 40,
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class Runner extends StatelessWidget {
+  const Runner({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        const FlutterLogo(
+          size: 40,
+          textColor: Colors.grey,
+        ),
+        Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(.3),
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+      ],
     );
   }
 }
