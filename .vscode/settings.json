@@ -1,0 +1,7 @@
+{
+    "files.autoSave": "afterDelay",
+    "debug.toolBarLocation": "commandCenter",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always"
+    }
+}

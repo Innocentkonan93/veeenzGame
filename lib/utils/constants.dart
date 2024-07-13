@@ -1,0 +1,46 @@
+String getLevelDescription(int level) {
+  switch (level) {
+    case 1:
+      return "Niveau 1 : Bienvenue dans l'aventure ! Apprenez les bases et commencez votre parcours. Bonne chance !";
+    case 2:
+      return "Niveau 2 : Super ! Vous maîtrisez les bases. Continuons à améliorer vos compétences.";
+    case 3:
+      return "Niveau 3 : Excellent travail ! Les défis deviennent plus intéressants. Montrez ce que vous avez appris.";
+    case 4:
+      return "Niveau 4 : Impressionnant ! Vous avancez rapidement. Préparez-vous pour des défis plus complexes.";
+    case 5:
+      return "Niveau 5 : Bravo ! Vous êtes à mi-chemin. Continuez à montrer votre détermination et vos compétences.";
+    case 6:
+      return "Niveau 6 : Fantastique ! Vous êtes presque au sommet. Poursuivez vos efforts.";
+    case 7:
+      return "Niveau 7 : Incroyable ! Vous êtes un champion. Les derniers défis vous attendent.";
+    case 8:
+      return "Niveau 8 : Félicitations ! Vous avez atteint le niveau final. Montrez votre maîtrise absolue.";
+    case 9:
+      return "Niveau 9 : Vous faites des progrès impressionnants. Poussez vos limites et continuez à briller.";
+    case 10:
+      return "Niveau 10 : Magnifique ! Votre parcours est inspirant. Préparez-vous pour des défis plus grands.";
+    case 11:
+      return "Niveau 11 : Vous êtes maintenant un expert. Utilisez votre expérience pour surmonter les obstacles.";
+    case 12:
+      return "Niveau 12 : Vos compétences sont indéniables. Continuez à exceller et à vous surpasser.";
+    case 13:
+      return "Niveau 13 : Vous êtes à la hauteur des plus grands. Poursuivez avec confiance et détermination.";
+    case 14:
+      return "Niveau 14 : Vous êtes proche du sommet. Continuez à gravir les échelons avec persévérance.";
+    case 15:
+      return "Niveau 15 : Votre talent est remarquable. Préparez-vous à affronter des défis inédits.";
+    case 16:
+      return "Niveau 16 : Vos efforts portent leurs fruits. Continuez à faire preuve de courage et de créativité.";
+    case 17:
+      return "Niveau 17 : Vous êtes un véritable modèle de réussite. Continuez à montrer l'exemple.";
+    case 18:
+      return "Niveau 18 : Vous êtes presque au bout de votre quête. Ne relâchez pas vos efforts maintenant.";
+    case 19:
+      return "Niveau 19 : Votre ténacité est exemplaire. Vous êtes sur le point de triompher.";
+    case 20:
+      return "Niveau 20 : Félicitations ! Vous avez atteint le niveau ultime. Votre parcours est une véritable inspiration.";
+    default:
+      return "Niveau $level : Continuez votre incroyable progression et relevez chaque défi avec brio !";
+  }
+}
