@@ -21,7 +21,7 @@ Welcome to **Veeenz**! An engaging game where your goal is to touch the runner d
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/veeenz.git
+   git clone https://github.com/Innocentkonan93/veeenzGame.git
 
 2. Install dependencies:
    ```sh
