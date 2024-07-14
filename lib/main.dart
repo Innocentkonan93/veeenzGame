@@ -6,7 +6,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:veeenz/configs/app_theme.dart';
 import 'package:veeenz/pages/home_page.dart';
-import 'package:veeenz/configs/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,7 +40,9 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       title: 'Veeenz Game',
-      theme: appTheme,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: ThemeMode.light,
       home: const HomePage(),
     );
   }

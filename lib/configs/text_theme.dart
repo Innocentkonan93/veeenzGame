@@ -18,6 +18,12 @@ TextTheme textTheme = TextTheme(
     color: Colors.white,
     // color: AppColor.white,
   ),
+  headlineLarge: GoogleFonts.jost(
+    fontSize: 32,
+    fontWeight: FontWeight.normal,
+    color: Colors.white,
+    // color: AppColor.white,
+  ),
   headlineMedium: GoogleFonts.jost(
     fontSize: 26,
     fontWeight: FontWeight.normal,
@@ -66,6 +72,95 @@ TextTheme textTheme = TextTheme(
     fontSize: 10,
     fontWeight: FontWeight.w500,
     color: Colors.white,
+  ),
+  labelSmall: GoogleFonts.jost(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: Colors.white54,
+  ),
+  labelMedium: GoogleFonts.jost(
+    fontSize: 10,
+    fontWeight: FontWeight.w500,
+    color: Colors.white54,
+  ),
+  labelLarge: GoogleFonts.jost(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+    color: Colors.white54,
+  ),
+);
+
+TextTheme darkTextTheme = TextTheme(
+  displayLarge: GoogleFonts.jost(
+    fontSize: 45,
+    fontWeight: FontWeight.w300,
+    color: Colors.black,
+  ),
+  displayMedium: GoogleFonts.jost(
+    fontSize: 35,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+  ),
+  displaySmall: GoogleFonts.jost(
+    fontSize: 28,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  headlineLarge: GoogleFonts.jost(
+    fontSize: 32,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  headlineMedium: GoogleFonts.jost(
+    fontSize: 26,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  headlineSmall: GoogleFonts.jost(
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  titleLarge: GoogleFonts.jost(
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  titleMedium: GoogleFonts.jost(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  titleSmall: GoogleFonts.jost(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  bodyLarge: GoogleFonts.jost(
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  bodyMedium: GoogleFonts.jost(
+    fontSize: 12,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+    // color: AppColor.white,
+  ),
+  bodySmall: GoogleFonts.jost(
+    fontSize: 10,
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
   ),
   labelSmall: GoogleFonts.jost(
     fontSize: 12,

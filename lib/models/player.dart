@@ -33,4 +33,8 @@ class Player extends Equatable {
       powers: 1,
     ),
   ];
+
+  Player decrementPower() {
+    return copyWith(powers: powers > 0 ? powers - 1 : 0);
+  }
 }

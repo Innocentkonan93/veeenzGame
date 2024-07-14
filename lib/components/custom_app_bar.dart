@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:veeenz/widgets/goal_view.dart';
 
@@ -37,6 +38,8 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
@@ -72,7 +75,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               child: Container(
                 width: 100,
                 decoration: BoxDecoration(
-                  color: Colors.white38,
+                  color: theme.colorScheme.surfaceTint.withOpacity(.1),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Hero(
@@ -82,20 +85,17 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     children: [
                       Text(
                         "Level ",
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                        style: theme.textTheme.titleLarge!.copyWith(
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                       if (level != null)
                         Center(
                           child: Text(
                             level.toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: theme.textTheme.titleLarge!.copyWith(
+                              color: theme.colorScheme.primary,
+                            ),
                           ),
                         ),
                     ],
@@ -123,7 +123,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
               child: Container(
                 width: 100,
                 decoration: BoxDecoration(
-                  color: Colors.white38,
+                  color: theme.colorScheme.surfaceTint.withOpacity(.1),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 // padding: const EdgeInsets.all(12),
@@ -140,12 +140,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
                         Center(
                           child: Text(
                             widget.levelTarget.toString(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge!
-                                .copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            style: theme.textTheme.titleLarge!.copyWith(
+                              color: theme.colorScheme.primary,
+                            ),
                           ),
                         ),
                       ],

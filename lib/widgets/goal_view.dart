@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:veeenz/configs/theme.dart';
 
 class GoalWiew extends StatelessWidget {
   const GoalWiew({super.key, required this.levelGoal});
@@ -9,10 +8,11 @@ class GoalWiew extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: const BackButton(color: AppColor.white),
+        leading: const BackButton(),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
@@ -25,7 +25,7 @@ class GoalWiew extends StatelessWidget {
             width: Get.width / 2,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.white12,
+              color: theme.colorScheme.surfaceTint.withOpacity(.1),
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -53,10 +53,9 @@ class GoalWiew extends StatelessWidget {
                         const SizedBox(width: 10),
                         Text(
                           levelGoal.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium!
-                              .copyWith(),
+                          style: theme.textTheme.displayMedium?.copyWith(
+                            color: theme.colorScheme.primary,
+                          ),
                         ),
                       ],
                     ),

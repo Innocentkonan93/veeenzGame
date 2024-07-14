@@ -1,3 +1,67 @@
+import 'package:flutter/material.dart';
+
+const movementMap = {
+  // Circle movement
+
+  0: Alignment.topCenter,
+  1: Alignment.topRight,
+  2: Alignment.centerRight,
+  3: Alignment.bottomRight,
+  4: Alignment.bottomCenter,
+  5: Alignment.bottomLeft,
+  6: Alignment.centerLeft,
+  7: Alignment.topLeft,
+  8: Alignment.topCenter,
+  // Z movement
+  9: Alignment.topLeft,
+  10: Alignment.topCenter,
+  11: Alignment.topRight,
+  12: Alignment.bottomLeft,
+  13: Alignment.bottomCenter,
+  14: Alignment.bottomRight,
+  15: Alignment.centerLeft,
+  16: Alignment.centerRight,
+  // N movement
+  17: Alignment.bottomLeft,
+  18: Alignment.centerLeft,
+  19: Alignment.topLeft,
+  20: Alignment.bottomRight,
+  21: Alignment.centerRight,
+  22: Alignment.topRight,
+  23: Alignment.topCenter,
+  24: Alignment.bottomCenter,
+  // Additional movements for variety
+  // Diagonal movement
+  25: Alignment.topLeft,
+  26: Alignment.bottomRight,
+  27: Alignment.topRight,
+  28: Alignment.bottomLeft,
+  // Horizontal movement
+  29: Alignment.centerLeft,
+  30: Alignment.centerRight,
+  // Vertical movement
+  31: Alignment.topCenter,
+  32: Alignment.bottomCenter,
+  // Zigzag movement
+  33: Alignment.topLeft,
+  34: Alignment.centerRight,
+  35: Alignment.bottomLeft,
+  36: Alignment.topRight,
+  37: Alignment.centerLeft,
+  38: Alignment.bottomRight,
+  // Spiral movement (starting from center)
+  39: Alignment.center,
+  40: Alignment.topCenter,
+  41: Alignment.topRight,
+  42: Alignment.centerRight,
+  43: Alignment.bottomRight,
+  44: Alignment.bottomCenter,
+  45: Alignment.bottomLeft,
+  46: Alignment.centerLeft,
+  47: Alignment.topLeft,
+  48: Alignment.center,
+};
+
 String getLevelDescription(int level) {
   switch (level) {
     case 1:
@@ -43,4 +107,11 @@ String getLevelDescription(int level) {
     default:
       return "Niveau $level : Continuez votre incroyable progression et relevez chaque défi avec brio !";
   }
+}
+
+int getMovementDurationFromLevel(int level) {
+  if (level <= 9) return 1300;
+  if (level >= 10 && level <= 19) return 1000;
+  if (level >= 20) return 700;
+  return 1300;
 }

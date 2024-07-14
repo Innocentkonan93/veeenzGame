@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -22,17 +23,61 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          SwitchListTile.adaptive(
-            value: true,
-            title: Text(
-              "Musique",
-              style: theme.textTheme.titleLarge,
+      body: SizedBox.expand(
+        child: Column(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.music_note_rounded),
+              title: Text(
+                "Mode sombre",
+                style: theme.textTheme.titleMedium,
+              ),
+              onTap: () {},
+              trailing: SizedBox(
+                height: 30,
+                width: 50,
+                child: Switch.adaptive(
+                  value: true,
+                  onChanged: (value) {
+                    if (value) {
+                      Get.changeThemeMode(ThemeMode.light);
+                    } else {
+                      Get.changeThemeMode(ThemeMode.dark);
+                    }
+                  },
+                ),
+              ),
             ),
-            onChanged: (value) {},
-          )
-        ],
+            ListTile(
+              leading: const Icon(Icons.dark_mode),
+              title: Text(
+                "Musique",
+                style: theme.textTheme.titleMedium,
+              ),
+              onTap: () {
+                if (Get.isDarkMode) {
+                  Get.changeThemeMode(ThemeMode.light);
+                } else {
+                  Get.changeThemeMode(ThemeMode.dark);
+                }
+              },
+              trailing: SizedBox(
+                height: 30,
+                width: 50,
+                child: Switch.adaptive(
+                  value: true,
+                  onChanged: (value) {
+                    if (Get.isDarkMode) {
+                      Get.changeThemeMode(ThemeMode.light);
+                    } else {
+                      Get.changeThemeMode(ThemeMode.dark);
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

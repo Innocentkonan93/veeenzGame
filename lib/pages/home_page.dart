@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:veeenz/models/player.dart';
 import 'package:veeenz/pages/gaming_page.dart';
+import 'package:veeenz/pages/how_to_play_page.dart';
 import 'package:veeenz/pages/settings_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +19,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Player player = Player.players.first;
+    final theme = context.theme;
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(
+                  () => const HowToPlayPage(),
+                );
+              },
+              icon: const Icon(CupertinoIcons.question_circle))
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 30),
@@ -28,7 +41,11 @@ class _HomePageState extends State<HomePage> {
               const Spacer(),
               Text(
                 "Veeenz",
-                style: Theme.of(context).textTheme.displayLarge,
+                style: theme.textTheme.headlineLarge?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: theme.colorScheme.surfaceTint.withOpacity(.4),
+                ),
+                textScaler: const TextScaler.linear(1.5),
               ),
               const Spacer(),
               Container(
@@ -55,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                         Text(
                           'Play',
                           style: GoogleFonts.jost(
-                            fontSize: 35,
+                            fontSize: 30,
                           ),
                         ),
                       ],
@@ -78,9 +95,9 @@ class _HomePageState extends State<HomePage> {
                     label: Row(
                       children: [
                         Text(
-                          'Setting',
+                          'Settings',
                           style: GoogleFonts.jost(
-                            color: Theme.of(context).colorScheme.primary,
+                            color: theme.colorScheme.primary,
                             fontSize: 30,
                           ),
                         ),

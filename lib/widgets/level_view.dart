@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:veeenz/configs/theme.dart';
 
 class LevelView extends StatelessWidget {
   const LevelView({super.key, required this.level});
@@ -9,10 +8,11 @@ class LevelView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: const BackButton(color: AppColor.white),
+        leading: const BackButton(),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
       ),
@@ -25,7 +25,7 @@ class LevelView extends StatelessWidget {
             width: Get.width / 2,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.white12,
+              color: theme.colorScheme.surfaceTint.withOpacity(.1),
             ),
             child: SingleChildScrollView(
               child: Column(
@@ -42,7 +42,9 @@ class LevelView extends StatelessWidget {
                   ),
                   Text(
                     level.toString(),
-                    style: Theme.of(context).textTheme.displayMedium!,
+                    style: theme.textTheme.displayMedium!.copyWith(
+                      color: theme.colorScheme.primary,
+                    ),
                   ),
                 ],
               ),
