@@ -173,7 +173,8 @@ class GameView extends GetView<GameController> {
                     onTap: () {
                       if (controller.isStart.value &&
                           controller.currentPlayer.value!.powers != 0) {
-                        controller.currentPlayer.value!.decrementPower();
+                        controller.currentPlayer(
+                            controller.currentPlayer.value!.decrementPower());
                         controller.seconds.value =
                             (controller.seconds.value + 10 <= maxSeconds)
                                 ? controller.seconds.value + 10
@@ -192,20 +193,22 @@ class GameView extends GetView<GameController> {
                             size: 30,
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: CircleAvatar(
-                            backgroundColor: AppColor.red,
-                            radius: 10,
-                            child: Text(
-                              controller.currentPlayer.value!.powers.toString(),
-                              style: theme.textTheme.titleSmall?.copyWith(
-                                color: AppColor.white,
+                        if (controller.currentPlayer.value!.powers != 0)
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: CircleAvatar(
+                              backgroundColor: AppColor.red,
+                              radius: 10,
+                              child: Text(
+                                controller.currentPlayer.value!.powers
+                                    .toString(),
+                                style: theme.textTheme.titleSmall?.copyWith(
+                                  color: AppColor.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),

@@ -1,23 +1,44 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  late AssetsAudioPlayer _assetsAudioPlayer;
+  final isSoundEnabled = true.obs;
 
-  final count = 0.obs;
   @override
   void onInit() {
+    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
     super.onInit();
   }
 
   @override
-  void onReady() {
-    super.onReady();
+  void dispose() {
+    _assetsAudioPlayer.dispose();
+    super.dispose();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void getSoundSettings() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    isSoundEnabled(pref.getBool('sound_enabled') ?? true);
   }
 
-  void increment() => count.value++;
+  Future<void> playAudio() async {
+    Audio audio = Audio("assets/audios/click.mp3");
+    if (isSoundEnabled.value) {
+      AssetsAudioPlayer.playAndForget(audio);
+    }
+  }
+
+  void vibrate() async {
+    // Check if the device can vibrate
+    bool canVibrate = await Vibrate.canVibrate;
+    var type = FeedbackType.impact;
+    if (canVibrate) {
+      Vibrate.feedback(type);
+    } else {
+      return;
+    }
+  }
 }

@@ -62,7 +62,8 @@ class HomeView extends GetWidget<HomeController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton.icon(
-                    onPressed: () {
+                    onPressed: () async {
+                      await controller.playAudio();
                       Get.to(
                         () => GameView(
                           player: player,
@@ -89,7 +90,8 @@ class HomeView extends GetWidget<HomeController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton.icon(
-                    onPressed: () {
+                    onPressed: () async {
+                      await controller.playAudio();
                       Get.to(() => const SettingsView());
                     },
                     icon: const Icon(

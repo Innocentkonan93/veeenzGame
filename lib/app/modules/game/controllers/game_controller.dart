@@ -5,6 +5,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -122,6 +123,7 @@ class GameController extends GetxController {
 
   // Game Control Methods
   void start() {
+    vibrate();
     isStart(true);
     startTimer();
     level <= 10 ? accuracyMovement(level.value) : randomMovement(level.value);
@@ -223,5 +225,16 @@ class GameController extends GetxController {
     SharedPreferences pref = await SharedPreferences.getInstance();
     Player player = currentPlayer.value!.copyWith(position: level.value);
     pref.setInt("level", player.position);
+  }
+
+  void vibrate() async {
+    // Check if the device can vibrate
+    bool canVibrate = await Vibrate.canVibrate;
+    var type = FeedbackType.success;
+    if (canVibrate) {
+      Vibrate.feedback(type);
+    } else {
+      return;
+    }
   }
 }

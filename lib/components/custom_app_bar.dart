@@ -39,7 +39,7 @@ class CustomAppBar extends GetWidget<GameController>
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
                         return LevelView(
-                          level: controller.currentPlayer.value?.position ?? 1,
+                          level: controller.level.value,
                         );
                       },
                       transitionsBuilder:

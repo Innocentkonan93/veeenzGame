@@ -148,3 +148,14 @@ final allLanguages = <Map<String, dynamic>>[
   {"name": "Thai", "native_name": "ไทย", "code": "th", "flag": "🇹🇭"},
   {"name": "Polish", "native_name": "Polski", "code": "pl", "flag": "🇵🇱"}
 ];
+
+// enum FeedbackType {
+//   success,
+//   error,
+//   warning,
+//   selection,
+//   impact,
+//   heavy,
+//   medium,
+//   light
+// }
