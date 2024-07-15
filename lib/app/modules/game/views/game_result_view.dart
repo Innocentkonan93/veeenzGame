@@ -1,16 +1,16 @@
 import 'dart:math';
 
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:veeenz/app/modules/game/controllers/game_controller.dart';
 import 'package:veeenz/app/modules/game/views/game_view.dart';
+import 'package:veeenz/app/modules/home/views/home_view.dart';
 import 'package:veeenz/configs/theme.dart';
+import 'package:veeenz/models/player.dart';
 
-import '../models/player.dart';
-
-class ResultView extends StatefulWidget {
-  const ResultView({
+class GameResultView extends GetWidget<GameController> {
+  const GameResultView({
     super.key,
     required this.isWin,
     required this.player,
@@ -22,58 +22,19 @@ class ResultView extends StatefulWidget {
   final String levelDescription;
 
   @override
-  State<ResultView> createState() => _ResultViewState();
-}
-
-class _ResultViewState extends State<ResultView> {
-  late ConfettiController _controllerCenter;
-  late AssetsAudioPlayer _assetsAudioPlayer;
-
-  @override
-  void initState() {
-    _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
-    playAudio();
-    _controllerCenter = ConfettiController();
-    _controllerCenter.play();
-
-    Future.delayed(const Duration(seconds: 3), () {
-      _controllerCenter.stop();
-    });
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _assetsAudioPlayer.dispose();
-    super.dispose();
-  }
-
-  Future playAudio() async {
-    Audio audio = Audio("assets/audios/winning.mp3");
-    if (widget.isWin) {
-      AssetsAudioPlayer.playAndForget(audio);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    bool isWin = widget.isWin;
-    Player player = widget.player;
+
     final theme = context.theme;
+    controller.playResultAudio(isWin);
 
     return SizedBox(
       height: size.height,
       width: size.width,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          automaticallyImplyLeading: false,
-          elevation: 0.0,
-        ),
         body: isWin == true
             ? ConfettiWidget(
-                confettiController: _controllerCenter,
+                confettiController: controller.controllerCenter,
                 maximumSize: const Size(15, 10),
                 minimumSize: const Size(15, 10),
                 blastDirection: pi / 2,
@@ -120,7 +81,7 @@ class _ResultViewState extends State<ResultView> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        widget.levelDescription,
+                        levelDescription,
                         style: Theme.of(context).textTheme.bodyMedium,
                         textAlign: TextAlign.center,
                       ),
@@ -148,12 +109,9 @@ class _ResultViewState extends State<ResultView> {
                       const SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => const GameView(),
-                            ),
-                            (route) => false,
-                          );
+                          Get.offAll(() => const HomeView());
+                          Get.off(() => GameView(player: player));
+                          // Get.back();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
@@ -203,12 +161,8 @@ class _ResultViewState extends State<ResultView> {
                     const SizedBox(height: 40),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                            builder: (context) => const GameView(),
-                          ),
-                          (route) => false,
-                        );
+                        Get.offAll(() => const HomeView());
+                        Get.off(() => GameView(player: player));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor:

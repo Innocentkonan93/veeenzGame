@@ -115,3 +115,47 @@ int getMovementDurationFromLevel(int level) {
   if (level >= 20) return 700;
   return 1300;
 }
+
+final allLanguages = <Map<String, dynamic>>[
+  {"name": "English", "native_name": "English", "code": "en", "flag": "🇺🇸"},
+  {"name": "Spanish", "native_name": "Español", "code": "es", "flag": "🇪🇸"},
+  {"name": "French", "native_name": "Français", "code": "fr", "flag": "🇫🇷"},
+  {"name": "Chinese", "native_name": "中文", "code": "zh", "flag": "🇨🇳"},
+  {"name": "German", "native_name": "Deutsch", "code": "de", "flag": "🇩🇪"},
+  {"name": "Japanese", "native_name": "日本語", "code": "ja", "flag": "🇯🇵"},
+  {"name": "Korean", "native_name": "한국어", "code": "ko", "flag": "🇰🇷"},
+  {
+    "name": "Portuguese",
+    "native_name": "Português",
+    "code": "pt",
+    "flag": "🇵🇹"
+  },
+  {"name": "Russian", "native_name": "Русский", "code": "ru", "flag": "🇷🇺"},
+  {"name": "Arabic", "native_name": "العربية", "code": "ar", "flag": "🇸🇦"},
+  {"name": "Italian", "native_name": "Italiano", "code": "it", "flag": "🇮🇹"},
+  {"name": "Dutch", "native_name": "Nederlands", "code": "nl", "flag": "🇳🇱"},
+  {"name": "Hindi", "native_name": "हिन्दी", "code": "hi", "flag": "🇮🇳"},
+  {"name": "Bengali", "native_name": "বাংলা", "code": "bn", "flag": "🇧🇩"},
+  {"name": "Swedish", "native_name": "Svenska", "code": "sv", "flag": "🇸🇪"},
+  {"name": "Turkish", "native_name": "Türkçe", "code": "tr", "flag": "🇹🇷"},
+  {"name": "Greek", "native_name": "Ελληνικά", "code": "el", "flag": "🇬🇷"},
+  {
+    "name": "Vietnamese",
+    "native_name": "Tiếng Việt",
+    "code": "vi",
+    "flag": "🇻🇳"
+  },
+  {"name": "Thai", "native_name": "ไทย", "code": "th", "flag": "🇹🇭"},
+  {"name": "Polish", "native_name": "Polski", "code": "pl", "flag": "🇵🇱"}
+];
+
+// enum FeedbackType {
+//   success,
+//   error,
+//   warning,
+//   selection,
+//   impact,
+//   heavy,
+//   medium,
+//   light
+// }

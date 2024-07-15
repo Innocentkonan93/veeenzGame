@@ -4,11 +4,18 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:veeenz/app/routes/app_pages.dart';
 import 'package:veeenz/configs/app_theme.dart';
-import 'package:veeenz/pages/home_page.dart';
+
+bool? isDarkMode;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  isDarkMode = (pref.getBool('dark_mode') ?? true);
+
   runApp(const MyApp());
   if (Platform.isMacOS) {
     doWhenWindowReady(() {
@@ -42,8 +49,10 @@ class MyApp extends StatelessWidget {
       title: 'Veeenz Game',
       theme: lightTheme,
       darkTheme: darkTheme,
-      themeMode: ThemeMode.light,
-      home: const HomePage(),
+      themeMode: isDarkMode! ? ThemeMode.dark : ThemeMode.light,
+      // home: const HomePage(),
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
     );
   }
 }

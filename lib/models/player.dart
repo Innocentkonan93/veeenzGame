@@ -23,7 +23,7 @@ class Player extends Equatable {
   }
 
   @override
-  List<Object> get props => [id, name, position];
+  List<Object> get props => [id, name, position, powers];
 
   static List<Player> players = [
     const Player(
