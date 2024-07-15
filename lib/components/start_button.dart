@@ -37,10 +37,11 @@ class StartButton extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              theme.secondaryHeaderColor,
-              theme.secondaryHeaderColor,
+              theme.colorScheme.surfaceTint,
+              theme.colorScheme.surfaceTint,
             ],
           ),
+          color: theme.colorScheme.surfaceTint,
           boxShadow: const [
             BoxShadow(
               color: Color.fromARGB(60, 100, 100, 100),

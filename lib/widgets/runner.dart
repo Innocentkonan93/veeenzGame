@@ -15,7 +15,7 @@ class Runner extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            color: theme.colorScheme.secondary.withOpacity(.3),
+            color: theme.colorScheme.surfaceTint.withOpacity(.5),
             borderRadius: BorderRadius.circular(4),
           ),
           // child: const FlutterLogo(
