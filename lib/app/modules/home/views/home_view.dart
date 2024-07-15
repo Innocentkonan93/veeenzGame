@@ -7,8 +7,10 @@ import 'package:veeenz/app/modules/game/controllers/game_controller.dart';
 import 'package:veeenz/app/modules/game/views/game_view.dart';
 import 'package:veeenz/app/modules/settings/controllers/settings_controller.dart';
 import 'package:veeenz/app/modules/settings/views/settings_view.dart';
+
 import 'package:veeenz/models/player.dart';
 import 'package:veeenz/pages/how_to_play_page.dart';
+import 'package:veeenz/widgets/dash_widget.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -52,10 +54,8 @@ class HomeView extends GetWidget<HomeController> {
               ),
               const Spacer(),
               Container(
-                constraints: const BoxConstraints(
-                  maxWidth: 300,
-                ),
-                child: Image.asset("assets/images/flutter_dash.png"),
+                // color: AppColor.red,
+                child: const DashWidget(),
               ),
               const SizedBox(height: 20),
               Row(
