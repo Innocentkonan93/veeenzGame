@@ -17,6 +17,8 @@ class LanguagesView extends GetWidget<SettingsController> {
           'Languages',
           style: theme.textTheme.titleLarge,
         ),
+        backgroundColor: Colors.transparent,
+        surfaceTintColor: Colors.transparent,
       ),
       body: Obx(() {
         if (controller.selectedLanguage.value.isEmpty) {

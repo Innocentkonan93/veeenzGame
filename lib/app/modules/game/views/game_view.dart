@@ -156,8 +156,13 @@ class GameView extends GetView<GameController> {
                     ),
                   ),
                   InkWell(
-                    onTap: () => Get.offAll(() => const HomeView(),
-                        fullscreenDialog: true),
+                    onTap: () {
+                      controller.stop();
+                      Get.offAll(
+                        () => const HomeView(),
+                        fullscreenDialog: true,
+                      );
+                    },
                     borderRadius: BorderRadius.circular(30),
                     child: const CircleAvatar(
                       radius: 30,

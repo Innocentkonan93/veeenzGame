@@ -48,15 +48,12 @@ class HomeView extends GetWidget<HomeController> {
                 "Veeenz",
                 style: theme.textTheme.headlineLarge?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: theme.colorScheme.surfaceTint.withOpacity(.4),
+                  // color: theme.textTheme .withOpacity(.4),
                 ),
                 textScaler: const TextScaler.linear(1.5),
               ),
               const Spacer(),
-              Container(
-                // color: AppColor.red,
-                child: const DashWidget(),
-              ),
+              const DashWidget(),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
