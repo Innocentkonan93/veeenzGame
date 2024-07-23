@@ -26,70 +26,71 @@ class LanguagesView extends GetWidget<SettingsController> {
             child: CircularProgressIndicator(),
           );
         }
-        return Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const Text('Select your preferred language'),
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    mainAxisSpacing: 10,
-                    crossAxisSpacing: 10,
-                  ),
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.all(10),
-                  itemCount: allLanguages.length,
-                  itemBuilder: (context, index) {
-                    final language = allLanguages[index];
-                    final flag = language['flag'];
-                    final code = language['code'];
-                    final name = language['name'];
-                    return GestureDetector(
-                      onTap: () {
-                        controller.selectedLanguage(code);
-                        controller.setLanguage(code);
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: controller.selectedLanguage.value == code
-                              ? theme.colorScheme.surfaceTint.withOpacity(.3)
-                              : null,
-                          border: Border.all(
-                            width: .5,
-                            color: controller.selectedLanguage.value == code
-                                ? theme.colorScheme.surfaceTint
-                                : AppColors.grey.withOpacity(.5),
-                          ),
-                        ),
-                        child: Center(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                flag,
-                                style: const TextStyle(fontSize: 50),
-                              ),
-                              Text(
-                                name,
-                              )
-                            ],
-                          ),
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Text('Select your preferred language'.tr),
+              GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                ),
+                shrinkWrap: true,
+                padding: const EdgeInsets.all(10),
+                itemCount: allLanguages.length,
+                itemBuilder: (context, index) {
+                  final language = allLanguages[index];
+                  final flag = language['flag'];
+                  final code = language['code'];
+                  final locale = language['locale'];
+                  final name = language['name'];
+                  return GestureDetector(
+                    onTap: () {
+                      controller.selectedLanguage(locale);
+                      controller.setLanguage(locale);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: controller.selectedLanguage.value == locale
+                            ? theme.colorScheme.surfaceTint.withOpacity(.3)
+                            : null,
+                        border: Border.all(
+                          width: .5,
+                          color: controller.selectedLanguage.value == locale
+                              ? theme.colorScheme.surfaceTint
+                              : AppColors.grey.withOpacity(.5),
                         ),
                       ),
-                    );
-                  },
-                )
-              ],
-            ),
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              flag,
+                              style: const TextStyle(fontSize: 50),
+                            ),
+                            Text(
+                              name,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
           ),
         );
       }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle save button click
+        onPressed: () async {
+          await Get.updateLocale(
+            Locale(controller.selectedLanguage.value),
+          );
         },
         child: const Icon(Icons.save),
       ),

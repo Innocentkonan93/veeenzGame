@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:veeenz/models/player.dart';
@@ -5,7 +6,7 @@ import 'package:veeenz/models/player.dart';
 class SettingsController extends GetxController {
   Rxn<Player> currentPlayer = Rxn<Player>();
 
-  final selectedLanguage = "fr".obs;
+  final selectedLanguage = "en_US".obs;
 
   final isDark = true.obs;
   final isSoundEnabled = true.obs;
@@ -30,18 +31,18 @@ class SettingsController extends GetxController {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setBool('sound_enabled', enabled);
     isSoundEnabled(enabled);
-    print(isSoundEnabled.value);
+    // print(isSoundEnabled.value);
   }
 
   Future<void> setLanguage(String language) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     await pref.setString('language', language);
-    selectedLanguage(language);
+    // selectedLanguage(language);
   }
 
   Future<void> getLanguageSettings() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
-    selectedLanguage(pref.getString('language') ?? 'fr');
+    selectedLanguage(pref.getString('language') ?? 'en_US');
   }
 
   @override

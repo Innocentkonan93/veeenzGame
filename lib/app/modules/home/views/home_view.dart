@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,16 +45,21 @@ class HomeView extends GetWidget<HomeController> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Spacer(),
-              Text(
-                "Veeenz",
-                style: theme.textTheme.headlineLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  // color: theme.textTheme .withOpacity(.4),
+              Opacity(
+                opacity: .3,
+                child: Text(
+                  "Veeenz",
+                  style: theme.textTheme.headlineLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    // color: theme.textTheme .withOpacity(.4),
+                  ),
+                  textScaler: const TextScaler.linear(1.5),
                 ),
-                textScaler: const TextScaler.linear(1.5),
               ),
               const Spacer(),
-              const DashWidget(),
+              const DashWidget()
+                  .animate()
+                  .shake(delay: const Duration(seconds: 1)),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +77,7 @@ class HomeView extends GetWidget<HomeController> {
                     label: Row(
                       children: [
                         Text(
-                          'Play',
+                          'Play'.tr,
                           style: GoogleFonts.jost(
                             fontSize: 30,
                           ),
@@ -97,7 +103,7 @@ class HomeView extends GetWidget<HomeController> {
                     label: Row(
                       children: [
                         Text(
-                          'Settings',
+                          'Settings'.tr,
                           style: GoogleFonts.jost(
                             color: theme.colorScheme.primary,
                             fontSize: 30,

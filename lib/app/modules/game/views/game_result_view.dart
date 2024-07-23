@@ -29,10 +29,10 @@ class GameResultView extends GetWidget<GameController> {
     controller.playResultAudio(isWin);
 
     return SizedBox(
-      height: size.height,
       width: size.width,
-      child: Scaffold(
-        body: isWin == true
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        child: isWin == true
             ? ConfettiWidget(
                 confettiController: controller.controllerCenter,
                 maximumSize: const Size(15, 10),
@@ -51,6 +51,7 @@ class GameResultView extends GetWidget<GameController> {
                 child: SizedBox(
                   width: double.infinity,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const SizedBox(
@@ -109,9 +110,10 @@ class GameResultView extends GetWidget<GameController> {
                       const SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: () {
-                          Get.offAll(() => const HomeView());
+                          // Get.offAll(() => const HomeView());
+                          Get.back();
+                          controller.clearData();
                           Get.off(() => GameView(player: player));
-                          // Get.back();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
@@ -136,6 +138,7 @@ class GameResultView extends GetWidget<GameController> {
                 width: double.infinity,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
                       "🥹",
@@ -161,7 +164,9 @@ class GameResultView extends GetWidget<GameController> {
                     const SizedBox(height: 40),
                     ElevatedButton(
                       onPressed: () {
-                        Get.offAll(() => const HomeView());
+                        // Get.offAll(() => const HomeView());
+                        Get.back();
+                        controller.clearData();
                         Get.off(() => GameView(player: player));
                       },
                       style: ElevatedButton.styleFrom(

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:confetti/confetti.dart';
@@ -19,9 +20,10 @@ class GameController extends GetxController {
   AIDifficultyAdjuster difficultyAdjuster = AIDifficultyAdjuster();
   static const maxSeconds = 35;
 
-  final seconds = maxSeconds.obs;
+  var seconds = maxSeconds.obs;
   final counter = 0.obs;
   Rxn<int> oldCounter = Rxn<int>(maxSeconds);
+  RxMap<String, dynamic> currentDecoration = <String, dynamic>{}.obs;
   Timer? _debounce;
   Timer? _timer;
   RxList<Widget> widgets = <Widget>[].obs;
@@ -44,6 +46,13 @@ class GameController extends GetxController {
     _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
     controllerCenter = ConfettiController();
     super.onInit();
+  }
+
+  void clearData() {
+    widgets.clear();
+    alignment(Alignment.center);
+    positionCaptured.clear();
+    seconds = maxSeconds.obs;
   }
 
   @override
@@ -76,7 +85,8 @@ class GameController extends GetxController {
   }
 
   void accuracyMovement(int level) {
-    int duration = getMovementDurationFromLevel(level);
+    // int duration = getMovementDurationFromLevel(level);
+    int duration = difficultyAdjuster.getAdjustedMovementDuration(level);
     _debounce?.cancel();
     _debounce = Timer.periodic(Duration(milliseconds: duration), (timer) {
       counter(isCompleted.value ? counter.value - 1 : counter.value + 1);
@@ -107,6 +117,7 @@ class GameController extends GetxController {
     level(pref.getInt("level") ?? 1);
     getLevelTarget(level.value);
     getTimerBasedOnLevel(level.value);
+    getGameDecoration();
   }
 
   void getLevelTarget(int level) {
@@ -121,8 +132,28 @@ class GameController extends GetxController {
     }
   }
 
+  void getGameDecoration() {
+    final bg = getDecorationForLevel(level.value);
+    currentDecoration(bg);
+  }
+
+  Map<String, dynamic> getDecorationForLevel(int level) {
+    Map<String, dynamic>? decoration;
+
+    for (var bg in allGameBackgrounds) {
+      if (bg['level'] <= level) {
+        decoration = bg;
+      } else {
+        break;
+      }
+    }
+
+    return decoration ?? allGameBackgrounds.first;
+  }
+
   // Game Control Methods
   void start() {
+    playStartAudio();
     vibrate();
     isStart(true);
     startTimer();
@@ -150,6 +181,13 @@ class GameController extends GetxController {
   }
 
   // UI Methods
+  Future<void> playStartAudio() async {
+    Audio audio = Audio("assets/audios/click.mp3");
+    if (isSoundEnabled.value) {
+      AssetsAudioPlayer.playAndForget(audio);
+    }
+  }
+
   Future<void> playAudio() async {
     Audio audio = Audio("assets/audios/catchit.mp3");
     if (isSoundEnabled.value) {
@@ -177,23 +215,39 @@ class GameController extends GetxController {
 
   void showResultDialog({bool isWin = false}) {
     String levelDescription = getLevelDescription(level.value);
-    showDialog(
-      context: Get.context!,
-      barrierLabel: "resultDialog",
-      barrierDismissible: false,
-      barrierColor: Colors.black12,
-      builder: (context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          insetPadding: const EdgeInsets.all(8),
-          child: GameResultView(
-            isWin: isWin,
-            player: currentPlayer.value!.copyWith(position: level.value),
-            levelDescription: levelDescription,
+
+    showGeneralDialog<bool>(
+      barrierColor: Colors.black.withOpacity(0.75),
+      transitionBuilder: (context, a1, a2, widget) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+          child: ScaleTransition(
+            scale: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+            child: FadeTransition(
+              opacity: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+              child: Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                insetPadding: const EdgeInsets.all(8),
+                child: GameResultView(
+                  isWin: isWin,
+                  player: currentPlayer.value!.copyWith(position: level.value),
+                  levelDescription: levelDescription,
+                ),
+              ),
+            ),
           ),
         );
+      },
+      transitionDuration: const Duration(
+        milliseconds: 100,
+      ),
+      barrierDismissible: false,
+      barrierLabel: '',
+      context: Get.context!,
+      pageBuilder: (context, animation1, animation2) {
+        return Container();
       },
     );
   }

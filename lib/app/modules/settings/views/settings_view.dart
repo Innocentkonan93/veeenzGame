@@ -32,7 +32,7 @@ class SettingsView extends GetWidget<SettingsController> {
                 ListTile(
                   leading: const Icon(Icons.music_note_rounded),
                   title: Text(
-                    "Mode sombre",
+                    "Dark mode".tr,
                     style: theme.textTheme.titleMedium,
                   ),
                   trailing: SizedBox(
@@ -55,7 +55,7 @@ class SettingsView extends GetWidget<SettingsController> {
                 ListTile(
                   leading: const Icon(Icons.dark_mode),
                   title: Text(
-                    "Musique",
+                    "Music".tr,
                     style: theme.textTheme.titleMedium,
                   ),
                   trailing: SizedBox(
@@ -72,7 +72,7 @@ class SettingsView extends GetWidget<SettingsController> {
                 ListTile(
                   leading: const Icon(Icons.translate_rounded),
                   title: Text(
-                    "Langue",
+                    "Language".tr,
                     style: theme.textTheme.titleMedium,
                   ),
                   onTap: () {
@@ -87,7 +87,7 @@ class SettingsView extends GetWidget<SettingsController> {
                         Text(
                           allLanguages.firstWhere(
                             (element) =>
-                                element["code"] ==
+                                element["locale"] ==
                                 controller.selectedLanguage.value,
                           )['native_name'],
                           style: theme.textTheme.bodyLarge,
@@ -96,7 +96,7 @@ class SettingsView extends GetWidget<SettingsController> {
                         Text(
                           allLanguages.firstWhere(
                             (element) =>
-                                element["code"] ==
+                                element["locale"] ==
                                 controller.selectedLanguage.value,
                           )['flag'],
                           style: theme.textTheme.titleLarge,

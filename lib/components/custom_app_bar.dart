@@ -18,7 +18,7 @@ class CustomAppBar extends GetWidget<GameController>
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-
+    Color textColor = controller.currentDecoration['text_color'];
     return Obx(() {
       return Container(
         clipBehavior: Clip.antiAlias,
@@ -55,7 +55,7 @@ class CustomAppBar extends GetWidget<GameController>
                 child: Container(
                   width: 100,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceTint.withOpacity(.1),
+                    color: Colors.white24,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   child: Hero(
@@ -64,7 +64,7 @@ class CustomAppBar extends GetWidget<GameController>
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          "Level ",
+                          "Level".tr,
                           style: theme.textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.w300,
                           ),
@@ -72,9 +72,8 @@ class CustomAppBar extends GetWidget<GameController>
                         Center(
                           child: Text(
                             controller.level.toString(),
-                            style: theme.textTheme.titleLarge!.copyWith(
-                              color: theme.colorScheme.primary,
-                            ),
+                            style: theme.textTheme.titleLarge!
+                                .copyWith(color: textColor),
                           ),
                         ),
                       ],
@@ -102,7 +101,7 @@ class CustomAppBar extends GetWidget<GameController>
                 child: Container(
                   width: 100,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceTint.withOpacity(.1),
+                    color: Colors.white24,
                     borderRadius: BorderRadius.circular(50),
                   ),
                   // padding: const EdgeInsets.all(12),
@@ -118,10 +117,11 @@ class CustomAppBar extends GetWidget<GameController>
                           ),
                           Center(
                             child: Text(
-                              controller.target.value.toString(),
-                              style: theme.textTheme.titleLarge!.copyWith(
-                                color: theme.colorScheme.primary,
-                              ),
+                              (controller.target.value -
+                                      controller.positionCaptured.length)
+                                  .toString(),
+                              style: theme.textTheme.titleLarge!
+                                  .copyWith(color: textColor),
                             ),
                           ),
                         ],

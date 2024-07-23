@@ -7,14 +7,19 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:veeenz/app/routes/app_pages.dart';
 import 'package:veeenz/configs/app_theme.dart';
+import 'package:veeenz/utils/constants.dart';
+import 'package:veeenz/utils/localisation.dart';
 
 bool? isDarkMode;
+String locale = "en_US";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   SharedPreferences pref = await SharedPreferences.getInstance();
   isDarkMode = (pref.getBool('dark_mode') ?? true);
+
+  locale = pref.getString('language') ?? locale;
 
   runApp(const MyApp());
   if (Platform.isMacOS) {
@@ -29,18 +34,49 @@ void main() async {
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void didChangeDependencies() {
+    precacheImage(const AssetImage('assets/wallpapers/dices.jpg'), context);
+    precacheImage(const AssetImage('assets/wallpapers/fantasy.jpg'), context);
+    precacheImage(const AssetImage('assets/wallpapers/moon.jpg'), context);
+    precacheImage(const AssetImage('assets/wallpapers/mountains.jpg'), context);
+    precacheImage(const AssetImage('assets/wallpapers/mushroom.jpg'), context);
+    precacheImage(const AssetImage('assets/wallpapers/neon.jpg'), context);
+    precacheImage(const AssetImage('assets/wallpapers/squares.jpg'), context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('fr', 'FR'),
+      translations: Translate(),
+      supportedLocales: [
+        // Locale('en', 'US'),
+        // Locale('fr', 'FR'),
+        // Locale('en', 'ES'),
+        // Locale('en', 'ES'),
+        ...List.generate(
+          allLanguages.length,
+          (index) {
+            String localeCode = allLanguages[index]['locale'];
+            return Locale(
+              localeCode.split("_").first,
+              localeCode.split("_").last,
+            );
+          },
+        )
       ],
-      locale: const Locale('fr', "FR"),
+      locale: Locale(locale.split('_').first, locale.split('_').last),
+      // fallbackLocale: const Locale('en', "US"),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

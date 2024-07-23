@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 const movementMap = {
   // Circle movement
-
   0: Alignment.topCenter,
   1: Alignment.topRight,
   2: Alignment.centerRight,
@@ -12,6 +11,7 @@ const movementMap = {
   6: Alignment.centerLeft,
   7: Alignment.topLeft,
   8: Alignment.topCenter,
+
   // Z movement
   9: Alignment.topLeft,
   10: Alignment.topCenter,
@@ -21,6 +21,7 @@ const movementMap = {
   14: Alignment.bottomRight,
   15: Alignment.centerLeft,
   16: Alignment.centerRight,
+
   // N movement
   17: Alignment.bottomLeft,
   18: Alignment.centerLeft,
@@ -30,18 +31,21 @@ const movementMap = {
   22: Alignment.topRight,
   23: Alignment.topCenter,
   24: Alignment.bottomCenter,
-  // Additional movements for variety
+
   // Diagonal movement
   25: Alignment.topLeft,
   26: Alignment.bottomRight,
   27: Alignment.topRight,
   28: Alignment.bottomLeft,
+
   // Horizontal movement
   29: Alignment.centerLeft,
   30: Alignment.centerRight,
+
   // Vertical movement
   31: Alignment.topCenter,
   32: Alignment.bottomCenter,
+
   // Zigzag movement
   33: Alignment.topLeft,
   34: Alignment.centerRight,
@@ -49,6 +53,7 @@ const movementMap = {
   36: Alignment.topRight,
   37: Alignment.centerLeft,
   38: Alignment.bottomRight,
+
   // Spiral movement (starting from center)
   39: Alignment.center,
   40: Alignment.topCenter,
@@ -60,6 +65,78 @@ const movementMap = {
   46: Alignment.centerLeft,
   47: Alignment.topLeft,
   48: Alignment.center,
+
+  // Square movement
+  49: Alignment.topLeft,
+  50: Alignment.topRight,
+  51: Alignment.bottomRight,
+  52: Alignment.bottomLeft,
+  53: Alignment.topLeft,
+
+  // Figure-eight movement
+  54: Alignment.topLeft,
+  55: Alignment.center,
+  56: Alignment.bottomRight,
+  57: Alignment.center,
+  58: Alignment.topRight,
+  59: Alignment.center,
+  60: Alignment.bottomLeft,
+  61: Alignment.center,
+
+  // Triangle movement
+  62: Alignment.topCenter,
+  63: Alignment.bottomRight,
+  64: Alignment.bottomLeft,
+  65: Alignment.topCenter,
+
+  // Cross movement
+  66: Alignment.topCenter,
+  67: Alignment.centerLeft,
+  68: Alignment.bottomCenter,
+  69: Alignment.centerRight,
+  70: Alignment.topCenter,
+
+  // Wave movement
+  71: Alignment.bottomLeft,
+  72: Alignment.centerLeft,
+  73: Alignment.topLeft,
+  74: Alignment.topCenter,
+  75: Alignment.topRight,
+  76: Alignment.centerRight,
+  77: Alignment.bottomRight,
+
+  // Randomized movement
+  78: Alignment.centerLeft,
+  79: Alignment.bottomRight,
+  80: Alignment.topCenter,
+  81: Alignment.bottomLeft,
+  82: Alignment.topRight,
+  83: Alignment.centerRight,
+  84: Alignment.topLeft,
+  85: Alignment.bottomCenter,
+
+  // Heart shape movement
+  86: Alignment.center,
+  87: Alignment.topCenter,
+  88: Alignment.topRight,
+  89: Alignment.centerRight,
+  90: Alignment.bottomRight,
+  91: Alignment.bottomCenter,
+  92: Alignment.bottomLeft,
+  93: Alignment.centerLeft,
+  94: Alignment.topLeft,
+  95: Alignment.topCenter,
+
+  // Star shape movement
+  96: Alignment.topCenter,
+  97: Alignment.centerRight,
+  98: Alignment.bottomLeft,
+  99: Alignment.topRight,
+  100: Alignment.bottomCenter,
+  101: Alignment.topLeft,
+  102: Alignment.bottomRight,
+  103: Alignment.centerLeft,
+  104: Alignment.topCenter,
 };
 
 String getLevelDescription(int level) {
@@ -117,36 +194,86 @@ int getMovementDurationFromLevel(int level) {
 }
 
 final allLanguages = <Map<String, dynamic>>[
-  {"name": "English", "native_name": "English", "code": "en", "flag": "🇺🇸"},
-  {"name": "Spanish", "native_name": "Español", "code": "es", "flag": "🇪🇸"},
-  {"name": "French", "native_name": "Français", "code": "fr", "flag": "🇫🇷"},
-  {"name": "Chinese", "native_name": "中文", "code": "zh", "flag": "🇨🇳"},
-  {"name": "German", "native_name": "Deutsch", "code": "de", "flag": "🇩🇪"},
-  {"name": "Japanese", "native_name": "日本語", "code": "ja", "flag": "🇯🇵"},
-  {"name": "Korean", "native_name": "한국어", "code": "ko", "flag": "🇰🇷"},
   {
-    "name": "Portuguese",
+    "name": "English",
+    "native_name": "English",
+    "code": "en",
+    "flag": "🇺🇸",
+    "locale": "en_US"
+  },
+  {
+    "name": "Français",
+    "native_name": "Français",
+    "code": "fr",
+    "flag": "🇫🇷",
+    "locale": "fr_FR"
+  },
+  {
+    "name": "Español",
+    "native_name": "Español",
+    "code": "es",
+    "flag": "🇪🇸",
+    "locale": "es_ES"
+  },
+  {
+    "name": "Deutsch",
+    "native_name": "Deutsch",
+    "code": "de",
+    "flag": "🇩🇪",
+    "locale": "de_DE"
+  },
+  {
+    "name": "Italiano",
+    "native_name": "Italiano",
+    "code": "it",
+    "flag": "🇮🇹",
+    "locale": "it_IT"
+  },
+  {
+    "name": "Português",
     "native_name": "Português",
     "code": "pt",
-    "flag": "🇵🇹"
+    "flag": "🇵🇹",
+    "locale": "pt_PT"
   },
-  {"name": "Russian", "native_name": "Русский", "code": "ru", "flag": "🇷🇺"},
-  {"name": "Arabic", "native_name": "العربية", "code": "ar", "flag": "🇸🇦"},
-  {"name": "Italian", "native_name": "Italiano", "code": "it", "flag": "🇮🇹"},
-  {"name": "Dutch", "native_name": "Nederlands", "code": "nl", "flag": "🇳🇱"},
-  {"name": "Hindi", "native_name": "हिन्दी", "code": "hi", "flag": "🇮🇳"},
-  {"name": "Bengali", "native_name": "বাংলা", "code": "bn", "flag": "🇧🇩"},
-  {"name": "Swedish", "native_name": "Svenska", "code": "sv", "flag": "🇸🇪"},
-  {"name": "Turkish", "native_name": "Türkçe", "code": "tr", "flag": "🇹🇷"},
-  {"name": "Greek", "native_name": "Ελληνικά", "code": "el", "flag": "🇬🇷"},
+];
+
+final allGameBackgrounds = <Map<String, dynamic>>[
   {
-    "name": "Vietnamese",
-    "native_name": "Tiếng Việt",
-    "code": "vi",
-    "flag": "🇻🇳"
+    "level": 1,
+    "image": "dices.jpg",
+    "text_color": Colors.black,
   },
-  {"name": "Thai", "native_name": "ไทย", "code": "th", "flag": "🇹🇭"},
-  {"name": "Polish", "native_name": "Polski", "code": "pl", "flag": "🇵🇱"}
+  {
+    "level": 10,
+    "image": "fantasy.jpg",
+    "text_color": Colors.white,
+  },
+  {
+    "level": 20,
+    "image": "moon.jpg",
+    "text_color": Colors.white,
+  },
+  {
+    "level": 30,
+    "image": "mountains.jpg",
+    "text_color": Colors.white,
+  },
+  {
+    "level": 40,
+    "image": "mushroom.jpg",
+    "text_color": Colors.white,
+  },
+  {
+    "level": 50,
+    "image": "neon.jpg",
+    "text_color": Colors.white,
+  },
+  {
+    "level": 100,
+    "image": "squares.jpg",
+    "text_color": Colors.white,
+  },
 ];
 
 // enum FeedbackType {
