@@ -18,10 +18,10 @@ import 'package:veeenz/utils/constants.dart';
 class GameController extends GetxController {
   Rxn<Player> currentPlayer = Rxn<Player>();
   AIDifficultyAdjuster difficultyAdjuster = AIDifficultyAdjuster();
+  late AssetsAudioPlayer _assetsAudioPlayer;
+  late ConfettiController controllerCenter;
   static const maxSeconds = 35;
 
-  var seconds = maxSeconds.obs;
-  final counter = 0.obs;
   Rxn<int> oldCounter = Rxn<int>(maxSeconds);
   RxMap<String, dynamic> currentDecoration = <String, dynamic>{}.obs;
   Timer? _debounce;
@@ -30,18 +30,20 @@ class GameController extends GetxController {
   Rx<AlignmentGeometry> alignment = Alignment.center.obs;
   RxList<AlignmentGeometry> positionCaptured = <AlignmentGeometry>[].obs;
   GetStorage storage = GetStorage();
+
+  final counter = 0.obs;
+  var seconds = maxSeconds.obs;
   final level = 1.obs;
   final target = 8.obs;
-  late AssetsAudioPlayer _assetsAudioPlayer;
   final isCompleted = false.obs;
   final isStart = false.obs;
   final isSoundEnabled = true.obs;
 
-  late ConfettiController controllerCenter;
+  final isLoading = false.obs;
 
   @override
   void onInit() {
-    getPlayerLevel();
+    getPlayerData();
     getSoundSettings();
     _assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
     controllerCenter = ConfettiController();
@@ -53,6 +55,7 @@ class GameController extends GetxController {
     alignment(Alignment.center);
     positionCaptured.clear();
     seconds = maxSeconds.obs;
+    getPlayerData();
   }
 
   @override
@@ -112,12 +115,23 @@ class GameController extends GetxController {
 
   // Helper Methods
 
-  Future<void> getPlayerLevel() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    level(pref.getInt("level") ?? 1);
-    getLevelTarget(level.value);
-    getTimerBasedOnLevel(level.value);
-    getGameDecoration();
+  Future<void> getPlayerData() async {
+    if (kDebugMode) {
+      print("geting player data ...");
+    }
+    try {
+      isLoading(true);
+      await Future.delayed(const Duration(seconds: 1));
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      level(pref.getInt("level") ?? 1);
+      getLevelTarget(level.value);
+      getTimerBasedOnLevel(level.value);
+      getGameDecoration();
+      isLoading(false);
+    } catch (e) {
+      isLoading(false);
+      print(e);
+    }
   }
 
   void getLevelTarget(int level) {

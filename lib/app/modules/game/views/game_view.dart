@@ -22,10 +22,9 @@ class GameView extends GetView<GameController> {
     final theme = context.theme;
     const maxSeconds = 35;
 
-    controller.currentPlayer(player);
-    controller.getPlayerLevel();
-
     Get.put(GameController());
+    controller.currentPlayer(player);
+    controller.getPlayerData();
     controller.getGameDecoration();
     String image = controller.currentDecoration['image'];
     return Container(
@@ -51,6 +50,11 @@ class GameView extends GetView<GameController> {
                     'Aucun joueur connecté',
                     style: theme.textTheme.bodyMedium,
                   ),
+                );
+              }
+              if (controller.isLoading.value) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
               }
               controller.oldCounter(controller.seconds.value);

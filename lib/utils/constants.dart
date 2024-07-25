@@ -208,34 +208,34 @@ final allLanguages = <Map<String, dynamic>>[
     "flag": "🇫🇷",
     "locale": "fr_FR"
   },
-  {
-    "name": "Español",
-    "native_name": "Español",
-    "code": "es",
-    "flag": "🇪🇸",
-    "locale": "es_ES"
-  },
-  {
-    "name": "Deutsch",
-    "native_name": "Deutsch",
-    "code": "de",
-    "flag": "🇩🇪",
-    "locale": "de_DE"
-  },
-  {
-    "name": "Italiano",
-    "native_name": "Italiano",
-    "code": "it",
-    "flag": "🇮🇹",
-    "locale": "it_IT"
-  },
-  {
-    "name": "Português",
-    "native_name": "Português",
-    "code": "pt",
-    "flag": "🇵🇹",
-    "locale": "pt_PT"
-  },
+  // {
+  //   "name": "Español",
+  //   "native_name": "Español",
+  //   "code": "es",
+  //   "flag": "🇪🇸",
+  //   "locale": "es_ES"
+  // },
+  // {
+  //   "name": "Deutsch",
+  //   "native_name": "Deutsch",
+  //   "code": "de",
+  //   "flag": "🇩🇪",
+  //   "locale": "de_DE"
+  // },
+  // {
+  //   "name": "Italiano",
+  //   "native_name": "Italiano",
+  //   "code": "it",
+  //   "flag": "🇮🇹",
+  //   "locale": "it_IT"
+  // },
+  // {
+  //   "name": "Português",
+  //   "native_name": "Português",
+  //   "code": "pt",
+  //   "flag": "🇵🇹",
+  //   "locale": "pt_PT"
+  // },
 ];
 
 final allGameBackgrounds = <Map<String, dynamic>>[

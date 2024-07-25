@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:veeenz/app/modules/game/controllers/game_controller.dart';
 import 'package:veeenz/app/modules/game/views/game_view.dart';
-import 'package:veeenz/app/modules/home/views/home_view.dart';
 import 'package:veeenz/configs/theme.dart';
 import 'package:veeenz/models/player.dart';
 

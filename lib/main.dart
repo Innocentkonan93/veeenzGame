@@ -44,13 +44,20 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void didChangeDependencies() {
-    precacheImage(const AssetImage('assets/wallpapers/dices.jpg'), context);
-    precacheImage(const AssetImage('assets/wallpapers/fantasy.jpg'), context);
-    precacheImage(const AssetImage('assets/wallpapers/moon.jpg'), context);
-    precacheImage(const AssetImage('assets/wallpapers/mountains.jpg'), context);
-    precacheImage(const AssetImage('assets/wallpapers/mushroom.jpg'), context);
-    precacheImage(const AssetImage('assets/wallpapers/neon.jpg'), context);
-    precacheImage(const AssetImage('assets/wallpapers/squares.jpg'), context);
+    Future.wait([
+      precacheImage(const AssetImage('assets/wallpapers/dices.jpg'), context),
+      precacheImage(const AssetImage('assets/wallpapers/fantasy.jpg'), context),
+      precacheImage(const AssetImage('assets/wallpapers/moon.jpg'), context),
+      precacheImage(
+          const AssetImage('assets/wallpapers/mountains.jpg'), context),
+      precacheImage(
+          const AssetImage('assets/wallpapers/mushroom.jpg'), context),
+      precacheImage(const AssetImage('assets/wallpapers/neon.jpg'), context),
+      precacheImage(const AssetImage('assets/wallpapers/squares.jpg'), context),
+      precacheImage(const AssetImage('assets/images/dash-cloud.png'), context),
+      precacheImage(
+          const AssetImage('assets/images/loading-gradient.jpg'), context),
+    ]);
     super.didChangeDependencies();
   }
 

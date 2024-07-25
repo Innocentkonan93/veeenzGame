@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:veeenz/models/player.dart';
@@ -45,6 +45,15 @@ class SettingsController extends GetxController {
     selectedLanguage(pref.getString('language') ?? 'en_US');
   }
 
+  void showMessage(String message) async {
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
   @override
   void onInit() {
     getSoundSettings();
@@ -56,5 +65,13 @@ class SettingsController extends GetxController {
       ],
     );
     super.onInit();
+  }
+
+  void saveLanguage() async {
+    await Get.updateLocale(
+      Locale(selectedLanguage.value),
+    );
+    Get.back();
+    showMessage("Saved".tr);
   }
 }

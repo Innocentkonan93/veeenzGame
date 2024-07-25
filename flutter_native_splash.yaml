@@ -1,0 +1,9 @@
+flutter_native_splash:
+
+  image: assets/images/logo.png # path to the splash image
+  android: true
+  ios: true
+  background_image_android: assets/images/splah_background.png
+  background_image_dark_android: assets/images/splah_background.png
+  background_image_ios: assets/images/splah_background.png
+  background_image_dark_ios: assets/images/splah_background.png

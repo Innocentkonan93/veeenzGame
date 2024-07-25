@@ -15,7 +15,7 @@ class SettingsView extends GetWidget<SettingsController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Settings',
+          'Settings'.tr,
           style: theme.textTheme.titleLarge,
         ),
       ),

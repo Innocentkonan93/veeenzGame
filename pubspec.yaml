@@ -17,6 +17,7 @@ dependencies:
   flutter_animate: ^4.5.0
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.4.1
   flutter_svg: ^2.0.10+1
   flutter_vibrate: ^1.3.0
   font_awesome_flutter: ^10.2.1
@@ -41,6 +42,9 @@ flutter:
     - assets/
     - assets/audios/
     - assets/images/
+    - assets/images/dash-cloud.png
+    - assets/images/home-bg.png
+    - assets/images/loading-gradient.jpg
     - assets/wallpapers/dices.jpg
     - assets/wallpapers/fantasy.jpg
     - assets/wallpapers/moon.jpg

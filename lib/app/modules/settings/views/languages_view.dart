@@ -43,9 +43,8 @@ class LanguagesView extends GetWidget<SettingsController> {
                 itemBuilder: (context, index) {
                   final language = allLanguages[index];
                   final flag = language['flag'];
-                  final code = language['code'];
                   final locale = language['locale'];
-                  final name = language['name'];
+                  final name = language['native_name'];
                   return GestureDetector(
                     onTap: () {
                       controller.selectedLanguage(locale);
@@ -86,13 +85,12 @@ class LanguagesView extends GetWidget<SettingsController> {
           ),
         );
       }),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          await Get.updateLocale(
-            Locale(controller.selectedLanguage.value),
-          );
+          controller.saveLanguage();
         },
-        child: const Icon(Icons.save),
+        label: Text("Save".tr),
+        icon: const Icon(Icons.check),
       ),
     );
   }

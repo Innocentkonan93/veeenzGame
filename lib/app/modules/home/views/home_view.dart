@@ -8,9 +8,10 @@ import 'package:veeenz/app/modules/game/controllers/game_controller.dart';
 import 'package:veeenz/app/modules/game/views/game_view.dart';
 import 'package:veeenz/app/modules/settings/controllers/settings_controller.dart';
 import 'package:veeenz/app/modules/settings/views/settings_view.dart';
+import 'package:veeenz/configs/theme.dart';
 
 import 'package:veeenz/models/player.dart';
-import 'package:veeenz/pages/how_to_play_page.dart';
+import 'package:veeenz/app/modules/home/views/how_to_play_page.dart';
 import 'package:veeenz/widgets/dash_widget.dart';
 
 import '../controllers/home_controller.dart';
@@ -25,7 +26,9 @@ class HomeView extends GetWidget<HomeController> {
 
     Get.put(GameController());
     Get.put(SettingsController());
+    Get.put(HomeController());
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         actions: [
           IconButton(
@@ -38,84 +41,100 @@ class HomeView extends GetWidget<HomeController> {
           )
         ],
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              const Spacer(),
-              Opacity(
-                opacity: .3,
-                child: Text(
-                  "Veeenz",
-                  style: theme.textTheme.headlineLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    // color: theme.textTheme .withOpacity(.4),
-                  ),
-                  textScaler: const TextScaler.linear(1.5),
+      body: SizedBox.expand(
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            Image.asset(
+              "assets/images/home-bg.png",
+              fit: BoxFit.cover,
+            ),
+            SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Spacer(),
+                    Opacity(
+                      opacity: .3,
+                      child: Text(
+                        "Veeenz",
+                        style: theme.textTheme.headlineLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          // color: theme.textTheme .withOpacity(.4),
+                        ),
+                        textScaler: const TextScaler.linear(1.5),
+                      ),
+                    ),
+                    const Spacer(),
+                    const DashWidget()
+                        .animate()
+                        .shake(delay: const Duration(seconds: 1)),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () async {
+                            await controller.playAudio();
+                            Get.to(
+                              () => GameView(
+                                player: player,
+                              ),
+                              fullscreenDialog: true,
+                            );
+                          },
+                          label: Row(
+                            children: [
+                              Text(
+                                'Play'.tr,
+                                style: GoogleFonts.jost(
+                                  fontSize: 30,
+                                  color: AppColor.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                          icon: const Icon(
+                            CupertinoIcons.play_arrow_solid,
+                            color: AppColor.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton.icon(
+                          onPressed: () async {
+                            await controller.playAudio();
+                            Get.to(() => const SettingsView());
+                          },
+                          icon: const Icon(
+                            CupertinoIcons.settings,
+                            color: AppColor.black,
+                          ),
+                          label: Row(
+                            children: [
+                              Text(
+                                'Settings'.tr,
+                                style: GoogleFonts.jost(
+                                  color: AppColor.black,
+                                  fontSize: 30,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ),
-              const Spacer(),
-              const DashWidget()
-                  .animate()
-                  .shake(delay: const Duration(seconds: 1)),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton.icon(
-                    onPressed: () async {
-                      await controller.playAudio();
-                      Get.to(
-                        () => GameView(
-                          player: player,
-                        ),
-                        fullscreenDialog: true,
-                      );
-                    },
-                    label: Row(
-                      children: [
-                        Text(
-                          'Play'.tr,
-                          style: GoogleFonts.jost(
-                            fontSize: 30,
-                          ),
-                        ),
-                      ],
-                    ),
-                    icon: const Icon(CupertinoIcons.play_arrow_solid),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton.icon(
-                    onPressed: () async {
-                      await controller.playAudio();
-                      Get.to(() => const SettingsView());
-                    },
-                    icon: const Icon(
-                      CupertinoIcons.settings,
-                    ),
-                    label: Row(
-                      children: [
-                        Text(
-                          'Settings'.tr,
-                          style: GoogleFonts.jost(
-                            color: theme.colorScheme.primary,
-                            fontSize: 30,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
