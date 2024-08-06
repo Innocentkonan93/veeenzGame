@@ -30,6 +30,15 @@ class HomeView extends GetWidget<HomeController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: IconButton.filledTonal(
+          onPressed: () {
+            print("object");
+          },
+          icon: const Icon(
+            CupertinoIcons.person_alt,
+            color: AppColor.black,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -77,7 +86,7 @@ class HomeView extends GetWidget<HomeController> {
                       children: [
                         TextButton.icon(
                           onPressed: () async {
-                            await controller.playAudio();
+                            // await controller.playAudio();
                             Get.to(
                               () => GameView(
                                 player: player,
@@ -109,7 +118,7 @@ class HomeView extends GetWidget<HomeController> {
                       children: [
                         TextButton.icon(
                           onPressed: () async {
-                            await controller.playAudio();
+                            // await controller.playAudio();
                             Get.to(() => const SettingsView());
                           },
                           icon: const Icon(

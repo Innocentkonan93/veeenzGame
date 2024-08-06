@@ -34,7 +34,7 @@ class GoalWiew extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Target",
+                    "Target".tr,
                     style: Theme.of(context)
                         .textTheme
                         .headlineSmall!

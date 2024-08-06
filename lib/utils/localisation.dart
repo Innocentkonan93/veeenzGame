@@ -37,6 +37,8 @@ class Translate extends Translations {
               "3. Vous devez atteindre l'objectif du niveau avant que le temps ne s'écoule.",
           "4. The levels become more challenging with more complex movements and shorter time limits.":
               "4. Les niveaux deviennent plus difficiles avec des mouvements plus complexes et des temps plus courts.",
+          "Quests": "Quêtes",
+          "Target": "Cible",
         },
         'en_US': {
           "Loading...": "Loading...",
@@ -72,6 +74,8 @@ class Translate extends Translations {
               "You must reach the level's objective before time runs out.",
           "4. The levels become more challenging with more complex movements and shorter time limits.":
               "4. The levels become more challenging with more complex movements and shorter time limits.",
+          "Quests": "Quests",
+          "Target": "Target",
         },
       };
 }

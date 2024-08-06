@@ -26,7 +26,7 @@ class GameResultView extends GetWidget<GameController> {
 
     final theme = context.theme;
     controller.playResultAudio(isWin);
-
+    // controller.getGameDecoration();
     return SizedBox(
       width: size.width,
       child: Container(

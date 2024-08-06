@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:veeenz/models/quest.dart';
+import 'package:veeenz/models/reward.dart';
 
 const movementMap = {
   // Circle movement
@@ -245,22 +247,22 @@ final allGameBackgrounds = <Map<String, dynamic>>[
     "text_color": Colors.black,
   },
   {
-    "level": 10,
+    "level": 2,
     "image": "fantasy.jpg",
     "text_color": Colors.white,
   },
   {
-    "level": 20,
+    "level": 3,
     "image": "moon.jpg",
     "text_color": Colors.white,
   },
   {
-    "level": 30,
+    "level": 4,
     "image": "mountains.jpg",
     "text_color": Colors.white,
   },
   {
-    "level": 40,
+    "level": 5,
     "image": "mushroom.jpg",
     "text_color": Colors.white,
   },
@@ -276,6 +278,60 @@ final allGameBackgrounds = <Map<String, dynamic>>[
   },
 ];
 
+Map<String, dynamic> getDecorationForLevel(int level) {
+  Map<String, dynamic>? decoration;
+
+  for (var bg in allGameBackgrounds) {
+    if (bg['level'] <= level) {
+      decoration = bg;
+    } else {
+      break;
+    }
+  }
+
+  return decoration ?? allGameBackgrounds.first;
+}
+
+final List<Reward> availableRewards = [
+  Reward(
+    id: 1,
+    name: 'Gold Coin',
+    description: 'A valuable gold coin.',
+    value: 10,
+  ),
+  Reward(
+    id: 2,
+    name: 'Silver Coin',
+    description: 'A shiny silver coin.',
+    value: 5,
+  ),
+  Reward(
+    id: 3,
+    name: 'XP Boost',
+    description: 'Increases experience points.',
+    value: 20,
+  ),
+  // Ajoutez plus de récompenses selon vos besoins
+];
+
+final List<Quest> allGameQuests = [
+  Quest(
+    id: '1',
+    title: 'First Catch',
+    description: 'Catch the runner for the first time.',
+    goal: 1,
+    reward: 10,
+    progress: 1,
+  ),
+  Quest(
+    id: '2',
+    title: 'Level Up',
+    description: 'Reach level 10.',
+    goal: 10,
+    reward: 20,
+  ),
+  // Add more quests as needed
+];
 // enum FeedbackType {
 //   success,
 //   error,

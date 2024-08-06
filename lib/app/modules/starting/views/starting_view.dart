@@ -64,12 +64,17 @@ class StartingView extends GetView<StartingController> {
                 Container(
                   color: AppColor.white,
                   padding: const EdgeInsets.all(8),
-                  child: const SafeArea(
+                  child: SafeArea(
                     top: false,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("1384 - 1.0.0"),
+                        Text(
+                          "1384 - 1.0.0",
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            color: AppColor.black,
+                          ),
+                        ),
                       ],
                     ),
                   ),
