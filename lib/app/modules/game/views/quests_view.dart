@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:veeenz/app/configs/theme.dart';
 import 'package:veeenz/app/modules/game/controllers/game_controller.dart';
 import 'package:veeenz/models/quest.dart';
 
@@ -70,11 +71,16 @@ class _QuestsViewState extends State<QuestsView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        quest.description,
-                        style: theme.textTheme.bodyMedium,
+                      Expanded(
+                        child: Text(
+                          quest.description,
+                          style: theme.textTheme.bodyMedium,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
+                      const SizedBox(width: 5),
                       Text('${quest.progress} / ${quest.goal}'),
+                      const SizedBox(width: 5),
                     ],
                   ),
                   const SizedBox(height: 8),
@@ -95,9 +101,14 @@ class _QuestsViewState extends State<QuestsView> {
                         children: [
                           ElevatedButton(
                             onPressed: () {
-                              controller.rewardPlayer(quest.reward);
+                              controller.rewardPlayer(quest.rewards);
                             },
-                            child: const Text('Claim'),
+                            child: Text(
+                              'Claim'.tr,
+                              style: theme.textTheme.titleSmall?.copyWith(
+                                color: AppColor.black,
+                              ),
+                            ),
                           )
                         ],
                       ),

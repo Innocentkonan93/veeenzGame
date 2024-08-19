@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:veeenz/app/modules/settings/controllers/settings_controller.dart';
-import 'package:veeenz/configs/app_colors.dart';
+import 'package:veeenz/app/configs/app_colors.dart';
 import 'package:veeenz/utils/constants.dart';
 
 class LanguagesView extends GetWidget<SettingsController> {

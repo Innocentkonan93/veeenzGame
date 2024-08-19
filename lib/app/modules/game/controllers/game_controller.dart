@@ -11,11 +11,12 @@ import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:veeenz/app/modules/game/views/game_result_view.dart';
-import 'package:veeenz/local_storage.dart/local_storage.dart';
+import 'package:veeenz/services/local_storage.dart/local_storage.dart';
 import 'package:veeenz/models/player.dart';
 import 'package:veeenz/models/quest.dart';
 import 'package:veeenz/services/ai_ajuster.dart';
 import 'package:veeenz/utils/constants.dart';
+import 'package:veeenz/widgets/custom_alert_dialog.dart';
 import 'package:veeenz/widgets/runner.dart';
 
 class GameController extends GetxController {
@@ -46,6 +47,7 @@ class GameController extends GetxController {
   final isLoading = false.obs;
 
   RxList<Quest> quests = <Quest>[].obs;
+  RxList<Quest> questArchived = <Quest>[].obs;
 
   // Initialization Methods
   @override
@@ -91,6 +93,7 @@ class GameController extends GetxController {
       getLevelTarget(level.value);
       getTimerBasedOnLevel(level.value);
       getGameDecoration();
+      loadQuests();
       isLoading(false);
     } catch (e) {
       isLoading(false);
@@ -204,8 +207,8 @@ class GameController extends GetxController {
   }
 
   // Game Control Methods
-  void start() {
-    playStartAudio();
+  void start() async {
+    await playStartAudio();
     vibrate();
     isStart(true);
     startTimer();
@@ -246,25 +249,56 @@ class GameController extends GetxController {
     List<String>? questsJson = await _localStorage.getQuests();
     if (questsJson != null) {
       quests.assignAll(
-          questsJson.map((quest) => Quest.fromMap(jsonDecode(quest))).toList());
+        questsJson.map((quest) => Quest.fromMap(jsonDecode(quest))).toList(),
+      );
+
+      questArchived(quests
+          .where(
+            (element) => element.isCompleted == true,
+          )
+          .toList());
     } else {
       assignQuests(); // Load default quests if no saved quests are found
     }
   }
 
+  void endGame(int score, int levelReached, int timeTaken) {
+    // Appelle updateProgress pour toutes les quêtes possibles à la fin de la partie
+    for (Quest quest in allGameQuests) {
+      if (quest.type == QuestType.reachLevel) {
+        quest.updateProgress(
+          'reachLevel',
+          levelReached,
+        );
+      } else if (quest.type == QuestType.catchRunner) {
+        quest.updateProgress(
+          'catchRunner',
+          1,
+        ); // Exemple pour une quête basée sur le nombre de runners attrapés
+      } else if (quest.type == QuestType.timeChallenge) {
+        quest.updateProgress(
+          'timeChallenge',
+          timeTaken,
+        );
+      }
+      // Ajoute d'autres conditions si nécessaire pour d'autres types de quêtes
+    }
+  }
+
   void updateQuestProgress(String questId, int progress) {
     final quest = quests.firstWhere((quest) => quest.id == questId);
+    quest.updateProgress(questId, progress);
     if (!quest.isCompleted) {
       quest.progress += progress;
       if (quest.isCompleted) {
-        rewardPlayer(quest.reward);
+        rewardPlayer(quest.rewards);
       }
       quests.refresh();
       saveQuests();
     }
   }
 
-  void rewardPlayer(int reward) {
+  void rewardPlayer(List rewards) {
     // Add reward to the player
     // Example: update player's score, coins, etc.
   }
@@ -290,6 +324,7 @@ class GameController extends GetxController {
       difficultyAdjuster.updatePerformance(true);
 
       if (isTargetGot()) {
+        saveQuests();
         level.value++;
         stop();
         updatePlayer();
@@ -377,90 +412,6 @@ class GameController extends GetxController {
       pageBuilder: (context, animation1, animation2) {
         return Container();
       },
-    );
-  }
-}
-
-class CustomAlertDialog extends StatelessWidget {
-  const CustomAlertDialog({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-        width: double.infinity,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const CircleAvatar(
-              radius: 30,
-              child: Icon(
-                Icons.home,
-                size: 45,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              "Vous voulez quittez le jeu ?",
-              textAlign: TextAlign.center,
-              style: theme.textTheme.titleLarge,
-            ),
-            const SizedBox(height: 5),
-            Text(
-              "En quittant le jeu la partie sera terminée !",
-              style: Theme.of(context).textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    // Get.offAll(() => const HomeView());
-                    Get.back(result: true);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    elevation: 0.0,
-                    shape: const StadiumBorder(),
-                    padding: const EdgeInsets.all(12),
-                  ),
-                  child: Text(
-                    'Oui',
-                    style: theme.textTheme.titleLarge!.copyWith(
-                      color: theme.colorScheme.surface,
-                    ),
-                  ),
-                ),
-                OutlinedButton(
-                  onPressed: () {
-                    // Get.offAll(() => const HomeView());
-                    Get.back(result: false);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0.0,
-                    shape: const StadiumBorder(),
-                    padding: const EdgeInsets.all(12),
-                  ),
-                  child: Text(
-                    'Non',
-                    style: theme.textTheme.titleLarge!.copyWith(),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
     );
   }
 }

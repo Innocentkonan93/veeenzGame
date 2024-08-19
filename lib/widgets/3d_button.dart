@@ -1,6 +1,7 @@
 library flutter_buttons;
 
 import 'package:flutter/material.dart';
+import 'package:veeenz/app/configs/theme.dart';
 
 class StyleOf3dButton {
   final Color topColor;
@@ -84,6 +85,7 @@ class Button3DState extends State<Button3D> {
         position: DecorationPosition.background,
         decoration: BoxDecoration(
           borderRadius: widget.style.borderRadius,
+          color: AppColor.white,
           boxShadow: [
             BoxShadow(
               color: widget.style.topColor,

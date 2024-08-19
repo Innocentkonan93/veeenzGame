@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:veeenz/configs/text_theme.dart';
-import 'package:veeenz/configs/theme.dart';
+import 'package:veeenz/app/configs/text_theme.dart';
+import 'package:veeenz/app/configs/theme.dart';
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
   visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -9,6 +9,19 @@ ThemeData darkTheme = ThemeData.dark().copyWith(
     iconTheme: IconThemeData(
       color: AppColor.white,
     ),
+  ),
+  inputDecorationTheme: const InputDecorationTheme(
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey,
+      ),
+    ),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(),
   ),
   colorScheme: ColorScheme.fromSeed(
     // brightness: Brightness.dark,
@@ -23,6 +36,19 @@ ThemeData lightTheme = ThemeData.light().copyWith(
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.transparent,
     iconTheme: IconThemeData(),
+  ),
+  inputDecorationTheme: const InputDecorationTheme(
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey,
+      ),
+    ),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(),
   ),
   colorScheme: ColorScheme.fromSeed(
     // brightness: Brightness.dark,

@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:veeenz/app/modules/home/views/how_to_play_page.dart';
 
 class GoalWiew extends StatelessWidget {
   const GoalWiew({super.key, required this.levelGoal});
@@ -15,6 +17,16 @@ class GoalWiew extends StatelessWidget {
         leading: const BackButton(),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.to(
+                () => const HowToPlayPage(),
+              );
+            },
+            icon: const Icon(CupertinoIcons.question_circle),
+          )
+        ],
       ),
       body: Center(
         child: Hero(

@@ -4,7 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 
 import 'package:veeenz/app/modules/game/controllers/game_controller.dart';
-import 'package:veeenz/configs/app_colors.dart';
+import 'package:veeenz/app/configs/app_colors.dart';
+import 'package:veeenz/app/modules/home/controllers/home_controller.dart';
 import 'package:veeenz/widgets/goal_view.dart';
 
 import '../widgets/level_view.dart';
@@ -18,6 +19,7 @@ class CustomAppBar extends GetWidget<GameController> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     // Color textColor = controller.currentDecoration['text_color'];
+    HomeController homeController = Get.find<HomeController>();
     return Obx(() {
       return Container(
         clipBehavior: Clip.antiAlias,
@@ -36,7 +38,9 @@ class CustomAppBar extends GetWidget<GameController> {
               Row(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      homeController.showProfileDialog();
+                    },
                     child: const CircleAvatar(
                       child: Icon(CupertinoIcons.person_alt),
                     ),
@@ -90,7 +94,7 @@ class CustomAppBar extends GetWidget<GameController> {
                             children: [
                               Text(
                                 "Level".tr,
-                                style: theme.textTheme.titleLarge?.copyWith(
+                                style: theme.textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.w300,
                                     color: AppColors.grey),
                               ),
@@ -108,9 +112,7 @@ class CustomAppBar extends GetWidget<GameController> {
                       ),
                     )
                         .animate()
-                        .slideX(begin: -1, end: 0, curve: Curves.bounceInOut
-                            // delay: const Duration(milliseconds: 400),
-                            )
+                        .slideX(begin: -1, end: 0, curve: Curves.bounceInOut)
                         .fadeIn(),
                   ),
                 ],

@@ -6,7 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:veeenz/app/routes/app_pages.dart';
-import 'package:veeenz/configs/app_theme.dart';
+import 'package:veeenz/app/configs/app_theme.dart';
 import 'package:veeenz/utils/constants.dart';
 import 'package:veeenz/utils/localisation.dart';
 

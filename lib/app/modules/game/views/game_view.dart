@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:get/get.dart';
+import 'package:veeenz/app/configs/app_colors.dart';
 import 'package:veeenz/app/modules/game/views/quests_view.dart';
 import 'package:veeenz/app/modules/home/views/home_view.dart';
 
 import 'package:veeenz/components/count_down.dart';
 import 'package:veeenz/components/custom_app_bar.dart';
-import 'package:veeenz/configs/theme.dart';
+import 'package:veeenz/app/configs/theme.dart';
 import 'package:veeenz/models/player.dart';
 import 'package:veeenz/widgets/3d_button.dart';
 
@@ -113,7 +114,10 @@ class GameView extends GetView<GameController> {
                                       onPressed: controller.start,
                                       child: Text(
                                         "Play".tr,
-                                        style: theme.textTheme.displaySmall,
+                                        style: theme.textTheme.displaySmall
+                                            ?.copyWith(
+                                          color: AppColors.black,
+                                        ),
                                       ),
                                     )
                                   : CountDown(
@@ -178,10 +182,12 @@ class GameView extends GetView<GameController> {
                                 CircleAvatar(
                                   radius: 30,
                                   // backgroundColor: Colors.blue.shade50,
-                                  child: Icon(
-                                    Icons.timer_10_rounded,
-                                    color: theme.colorScheme.primary,
-                                    size: 30,
+                                  child: Text(
+                                    "10s",
+                                    style:
+                                        theme.textTheme.headlineSmall?.copyWith(
+                                      color: AppColor.black,
+                                    ),
                                   ),
                                 ),
                                 if (controller.currentPlayer.value!.powers != 0)
@@ -215,14 +221,35 @@ class GameView extends GetView<GameController> {
                               );
                             },
                             borderRadius: BorderRadius.circular(30),
-                            child: const CircleAvatar(
-                              radius: 30,
-                              backgroundColor: AppColor.white,
-                              child: Icon(
-                                Icons.beenhere,
-                                color: Color.fromARGB(255, 83, 100, 92),
-                                size: 30,
-                              ),
+                            child: Stack(
+                              children: [
+                                const CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: AppColor.white,
+                                  child: Icon(
+                                    Icons.beenhere,
+                                    color: Color.fromARGB(255, 83, 100, 92),
+                                    size: 30,
+                                  ),
+                                ),
+                                if (controller.questArchived.isNotEmpty)
+                                  Positioned(
+                                    bottom: 0,
+                                    left: 0,
+                                    child: CircleAvatar(
+                                      backgroundColor: AppColor.red,
+                                      radius: 10,
+                                      child: Text(
+                                        controller.questArchived.length
+                                            .toString(),
+                                        style: theme.textTheme.titleSmall
+                                            ?.copyWith(
+                                          color: AppColor.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
                           InkWell(

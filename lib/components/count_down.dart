@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:veeenz/configs/theme.dart';
+import 'package:veeenz/app/configs/theme.dart';
 
 class CountDown extends StatelessWidget {
   const CountDown({

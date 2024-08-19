@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:veeenz/models/quest.dart';
 import 'package:veeenz/models/reward.dart';
 
@@ -144,47 +145,64 @@ const movementMap = {
 String getLevelDescription(int level) {
   switch (level) {
     case 1:
-      return "Niveau 1 : Bienvenue dans l'aventure ! Apprenez les bases et commencez votre parcours. Bonne chance !";
+      return "Welcome to the adventure! Learn the basics and start your journey. Good luck!"
+          .tr;
     case 2:
-      return "Niveau 2 : Super ! Vous maîtrisez les bases. Continuons à améliorer vos compétences.";
+      return "Great! You have mastered the basics. Let's continue to improve your skills."
+          .tr;
     case 3:
-      return "Niveau 3 : Excellent travail ! Les défis deviennent plus intéressants. Montrez ce que vous avez appris.";
+      return "Excellent work! The challenges are getting more interesting. Show what you've learned."
+          .tr;
     case 4:
-      return "Niveau 4 : Impressionnant ! Vous avancez rapidement. Préparez-vous pour des défis plus complexes.";
+      return "Impressive! You're progressing quickly. Get ready for more complex challenges."
+          .tr;
     case 5:
-      return "Niveau 5 : Bravo ! Vous êtes à mi-chemin. Continuez à montrer votre détermination et vos compétences.";
+      return "Well done! You're halfway there. Keep showing your determination and skills."
+          .tr;
     case 6:
-      return "Niveau 6 : Fantastique ! Vous êtes presque au sommet. Poursuivez vos efforts.";
+      return "Fantastic! You're almost at the top. Keep pushing forward.".tr;
     case 7:
-      return "Niveau 7 : Incroyable ! Vous êtes un champion. Les derniers défis vous attendent.";
+      return "Incredible! You're a champion. The final challenges await you."
+          .tr;
     case 8:
-      return "Niveau 8 : Félicitations ! Vous avez atteint le niveau final. Montrez votre maîtrise absolue.";
+      return "Congratulations! You've reached the final level. Show your absolute mastery."
+          .tr;
     case 9:
-      return "Niveau 9 : Vous faites des progrès impressionnants. Poussez vos limites et continuez à briller.";
+      return "You're making impressive progress. Push your limits and keep shining."
+          .tr;
     case 10:
-      return "Niveau 10 : Magnifique ! Votre parcours est inspirant. Préparez-vous pour des défis plus grands.";
+      return "Magnificent! Your journey is inspiring. Get ready for bigger challenges."
+          .tr;
     case 11:
-      return "Niveau 11 : Vous êtes maintenant un expert. Utilisez votre expérience pour surmonter les obstacles.";
+      return "You're now an expert. Use your experience to overcome obstacles."
+          .tr;
     case 12:
-      return "Niveau 12 : Vos compétences sont indéniables. Continuez à exceller et à vous surpasser.";
+      return "Your skills are undeniable. Keep excelling and surpassing yourself."
+          .tr;
     case 13:
-      return "Niveau 13 : Vous êtes à la hauteur des plus grands. Poursuivez avec confiance et détermination.";
+      return "You're on par with the greatest. Continue with confidence and determination."
+          .tr;
     case 14:
-      return "Niveau 14 : Vous êtes proche du sommet. Continuez à gravir les échelons avec persévérance.";
+      return "You're close to the top. Keep climbing with perseverance.".tr;
     case 15:
-      return "Niveau 15 : Votre talent est remarquable. Préparez-vous à affronter des défis inédits.";
+      return "Your talent is remarkable. Get ready to face new challenges."
+          .tr;
     case 16:
-      return "Niveau 16 : Vos efforts portent leurs fruits. Continuez à faire preuve de courage et de créativité.";
+      return "Your efforts are paying off. Keep showing courage and creativity."
+          .tr;
     case 17:
-      return "Niveau 17 : Vous êtes un véritable modèle de réussite. Continuez à montrer l'exemple.";
+      return "You're a true model of success. Keep setting the example."
+          .tr;
     case 18:
-      return "Niveau 18 : Vous êtes presque au bout de votre quête. Ne relâchez pas vos efforts maintenant.";
+      return "You're almost at the end of your quest. Don't let up now."
+          .tr;
     case 19:
-      return "Niveau 19 : Votre ténacité est exemplaire. Vous êtes sur le point de triompher.";
+      return "Your tenacity is exemplary. You're on the verge of triumph.".tr;
     case 20:
-      return "Niveau 20 : Félicitations ! Vous avez atteint le niveau ultime. Votre parcours est une véritable inspiration.";
+      return "Congratulations! You've reached the ultimate level. Your journey is a true inspiration."
+          .tr;
     default:
-      return "Niveau $level : Continuez votre incroyable progression et relevez chaque défi avec brio !";
+      return "Continue your incredible progress and tackle each challenge with brilliance!".tr;
   }
 }
 
@@ -247,27 +265,27 @@ final allGameBackgrounds = <Map<String, dynamic>>[
     "text_color": Colors.black,
   },
   {
-    "level": 2,
+    "level": 20,
     "image": "fantasy.jpg",
     "text_color": Colors.white,
   },
   {
-    "level": 3,
+    "level": 30,
     "image": "moon.jpg",
     "text_color": Colors.white,
   },
   {
-    "level": 4,
+    "level": 40,
     "image": "mountains.jpg",
     "text_color": Colors.white,
   },
   {
-    "level": 5,
+    "level": 50,
     "image": "mushroom.jpg",
     "text_color": Colors.white,
   },
   {
-    "level": 50,
+    "level": 60,
     "image": "neon.jpg",
     "text_color": Colors.white,
   },
@@ -319,16 +337,19 @@ final List<Quest> allGameQuests = [
     id: '1',
     title: 'First Catch',
     description: 'Catch the runner for the first time.',
+    type: QuestType.catchRunner,
     goal: 1,
-    reward: 10,
+    rewards: [10],
     progress: 1,
   ),
   Quest(
     id: '2',
     title: 'Level Up',
     description: 'Reach level 10.',
+    type: QuestType.reachLevel,
     goal: 10,
-    reward: 20,
+    rewards: [20],
+    progress: 0,
   ),
   // Add more quests as needed
 ];

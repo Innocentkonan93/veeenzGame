@@ -2,88 +2,88 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 TextTheme textTheme = TextTheme(
-  displayLarge: GoogleFonts.jost(
+  displayLarge: GoogleFonts.orbitron(
     fontSize: 45,
     fontWeight: FontWeight.w300,
     color: Colors.white,
   ),
-  displayMedium: GoogleFonts.jost(
+  displayMedium: GoogleFonts.orbitron(
     fontSize: 35,
     fontWeight: FontWeight.normal,
     color: Colors.white,
   ),
-  displaySmall: GoogleFonts.jost(
+  displaySmall: GoogleFonts.orbitron(
     fontSize: 28,
     fontWeight: FontWeight.normal,
     color: Colors.white,
     // color: AppColor.white,
   ),
-  headlineLarge: GoogleFonts.jost(
+  headlineLarge: GoogleFonts.orbitron(
     fontSize: 32,
     fontWeight: FontWeight.normal,
     color: Colors.white,
     // color: AppColor.white,
   ),
-  headlineMedium: GoogleFonts.jost(
+  headlineMedium: GoogleFonts.orbitron(
     fontSize: 26,
     fontWeight: FontWeight.normal,
     color: Colors.white,
     // color: AppColor.white,
   ),
-  headlineSmall: GoogleFonts.jost(
+  headlineSmall: GoogleFonts.orbitron(
     fontSize: 20,
     fontWeight: FontWeight.normal,
     color: Colors.white,
     // color: AppColor.white,
   ),
-  titleLarge: GoogleFonts.jost(
+  titleLarge: GoogleFonts.orbitron(
     fontSize: 16,
     fontWeight: FontWeight.w600,
 
     color: Colors.white,
     // color: AppColor.white,
   ),
-  titleMedium: GoogleFonts.jost(
+  titleMedium: GoogleFonts.orbitron(
     fontSize: 14,
     fontWeight: FontWeight.w600,
     color: Colors.white,
     // color: AppColor.white,
   ),
-  titleSmall: GoogleFonts.jost(
+  titleSmall: GoogleFonts.orbitron(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.white,
     // color: AppColor.white,
   ),
-  bodyLarge: GoogleFonts.jost(
+  bodyLarge: GoogleFonts.orbitron(
     fontSize: 14,
     fontWeight: FontWeight.w500,
 
     color: Colors.white,
     // color: AppColor.white,
   ),
-  bodyMedium: GoogleFonts.jost(
+  bodyMedium: GoogleFonts.orbitron(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.white,
     // color: AppColor.white,
   ),
-  bodySmall: GoogleFonts.jost(
+  bodySmall: GoogleFonts.orbitron(
     fontSize: 10,
     fontWeight: FontWeight.w500,
     color: Colors.white,
   ),
-  labelSmall: GoogleFonts.jost(
+  labelSmall: GoogleFonts.orbitron(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.white54,
   ),
-  labelMedium: GoogleFonts.jost(
+  labelMedium: GoogleFonts.orbitron(
     fontSize: 10,
     fontWeight: FontWeight.w500,
     color: Colors.white54,
   ),
-  labelLarge: GoogleFonts.jost(
+  labelLarge: GoogleFonts.orbitron(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: Colors.white54,
@@ -91,88 +91,88 @@ TextTheme textTheme = TextTheme(
 );
 
 TextTheme darkTextTheme = TextTheme(
-  displayLarge: GoogleFonts.jost(
+  displayLarge: GoogleFonts.orbitron(
     fontSize: 45,
     fontWeight: FontWeight.w300,
     color: Colors.black,
   ),
-  displayMedium: GoogleFonts.jost(
+  displayMedium: GoogleFonts.orbitron(
     fontSize: 35,
     fontWeight: FontWeight.normal,
     color: Colors.black,
   ),
-  displaySmall: GoogleFonts.jost(
+  displaySmall: GoogleFonts.orbitron(
     fontSize: 28,
     fontWeight: FontWeight.normal,
     color: Colors.black,
     // color: AppColor.white,
   ),
-  headlineLarge: GoogleFonts.jost(
+  headlineLarge: GoogleFonts.orbitron(
     fontSize: 32,
     fontWeight: FontWeight.normal,
     color: Colors.black,
     // color: AppColor.white,
   ),
-  headlineMedium: GoogleFonts.jost(
+  headlineMedium: GoogleFonts.orbitron(
     fontSize: 26,
     fontWeight: FontWeight.normal,
     color: Colors.black,
     // color: AppColor.white,
   ),
-  headlineSmall: GoogleFonts.jost(
+  headlineSmall: GoogleFonts.orbitron(
     fontSize: 20,
     fontWeight: FontWeight.normal,
     color: Colors.black,
     // color: AppColor.white,
   ),
-  titleLarge: GoogleFonts.jost(
+  titleLarge: GoogleFonts.orbitron(
     fontSize: 16,
     fontWeight: FontWeight.w600,
 
     color: Colors.black,
     // color: AppColor.white,
   ),
-  titleMedium: GoogleFonts.jost(
+  titleMedium: GoogleFonts.orbitron(
     fontSize: 14,
     fontWeight: FontWeight.w600,
     color: Colors.black,
     // color: AppColor.white,
   ),
-  titleSmall: GoogleFonts.jost(
+  titleSmall: GoogleFonts.orbitron(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.black,
     // color: AppColor.white,
   ),
-  bodyLarge: GoogleFonts.jost(
+  bodyLarge: GoogleFonts.orbitron(
     fontSize: 14,
     fontWeight: FontWeight.w500,
 
     color: Colors.black,
     // color: AppColor.white,
   ),
-  bodyMedium: GoogleFonts.jost(
+  bodyMedium: GoogleFonts.orbitron(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.black,
     // color: AppColor.white,
   ),
-  bodySmall: GoogleFonts.jost(
+  bodySmall: GoogleFonts.orbitron(
     fontSize: 10,
     fontWeight: FontWeight.w500,
     color: Colors.black,
   ),
-  labelSmall: GoogleFonts.jost(
+  labelSmall: GoogleFonts.orbitron(
     fontSize: 12,
     fontWeight: FontWeight.w500,
     color: Colors.white54,
   ),
-  labelMedium: GoogleFonts.jost(
+  labelMedium: GoogleFonts.orbitron(
     fontSize: 10,
     fontWeight: FontWeight.w500,
     color: Colors.white54,
   ),
-  labelLarge: GoogleFonts.jost(
+  labelLarge: GoogleFonts.orbitron(
     fontSize: 14,
     fontWeight: FontWeight.w500,
     color: Colors.white54,

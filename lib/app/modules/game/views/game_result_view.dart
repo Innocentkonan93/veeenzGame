@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:veeenz/app/modules/game/controllers/game_controller.dart';
 import 'package:veeenz/app/modules/game/views/game_view.dart';
-import 'package:veeenz/configs/theme.dart';
+import 'package:veeenz/app/configs/theme.dart';
 import 'package:veeenz/models/player.dart';
 
 class GameResultView extends GetWidget<GameController> {
@@ -66,9 +66,9 @@ class GameResultView extends GetWidget<GameController> {
                           ),
                         ),
                       ),
-                      const Text(
-                        "Félicitations ",
-                        style: TextStyle(
+                      Text(
+                        "${"Bien joué".tr} !",
+                        style: const TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),

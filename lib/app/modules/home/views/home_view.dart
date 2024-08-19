@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:veeenz/app/modules/game/controllers/game_controller.dart';
 import 'package:veeenz/app/modules/game/views/game_view.dart';
 import 'package:veeenz/app/modules/settings/controllers/settings_controller.dart';
 import 'package:veeenz/app/modules/settings/views/settings_view.dart';
-import 'package:veeenz/configs/theme.dart';
+import 'package:veeenz/app/configs/theme.dart';
 
 import 'package:veeenz/models/player.dart';
 import 'package:veeenz/app/modules/home/views/how_to_play_page.dart';
@@ -32,7 +31,8 @@ class HomeView extends GetWidget<HomeController> {
       appBar: AppBar(
         leading: IconButton.filledTonal(
           onPressed: () {
-            print("object");
+            // print("object");
+            controller.showProfileDialog();
           },
           icon: const Icon(
             CupertinoIcons.person_alt,
@@ -98,12 +98,15 @@ class HomeView extends GetWidget<HomeController> {
                             children: [
                               Text(
                                 'Play'.tr,
-                                style: GoogleFonts.jost(
+                                style: const TextStyle(
                                   fontSize: 30,
                                   color: AppColor.black,
                                 ),
                               ),
                             ],
+                          ),
+                          style: TextButton.styleFrom(
+                            backgroundColor: AppColor.white,
                           ),
                           icon: const Icon(
                             CupertinoIcons.play_arrow_solid,
@@ -118,7 +121,6 @@ class HomeView extends GetWidget<HomeController> {
                       children: [
                         TextButton.icon(
                           onPressed: () async {
-                            // await controller.playAudio();
                             Get.to(() => const SettingsView());
                           },
                           icon: const Icon(
@@ -129,7 +131,7 @@ class HomeView extends GetWidget<HomeController> {
                             children: [
                               Text(
                                 'Settings'.tr,
-                                style: GoogleFonts.jost(
+                                style: const TextStyle(
                                   color: AppColor.black,
                                   fontSize: 30,
                                 ),

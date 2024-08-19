@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:veeenz/configs/responsive.dart';
+import 'package:veeenz/app/configs/responsive.dart';
 
 class StartButton extends StatelessWidget {
   const StartButton({
